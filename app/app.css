@@ -1,0 +1,50 @@
+/* Pages Bar */
+#pages-bar {
+  height: 50px;
+  width: 100%;
+  bottom: 0;
+  position: absolute;
+  background-image: linear-gradient(rgba(242, 242, 242, 0.9), rgba(222, 222, 222, 0.9));
+  border-top: 1px solid #e3e3e3;
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+  #pages-bar .pages-list {
+    display: flex;
+    height: 100%;
+    list-style-type: none;
+    margin: 0;
+    padding: 0; }
+    #pages-bar .pages-list li {
+      max-width: 100px;
+      margin-right: 10px;
+      position: relative; }
+      #pages-bar .pages-list li a {
+        display: table;
+        width: 100%;
+        height: 100%; }
+        #pages-bar .pages-list li a:hover .selection-bar, #pages-bar .pages-list li a.selected .selection-bar {
+          background: #7f7f7f; }
+        #pages-bar .pages-list li a:hover input, #pages-bar .pages-list li a.selected input {
+          color: #7f7f7f; }
+      #pages-bar .pages-list li .selection-bar {
+        height: 5px;
+        margin-top: 10px;
+        background: rgba(0, 0, 0, 0.09); }
+      #pages-bar .pages-list li input {
+        color: rgba(0, 0, 0, 0.45);
+        border: none;
+        width: 100%;
+        margin-top: 3px;
+        font-size: 14px;
+        cursor: pointer; }
+        #pages-bar .pages-list li input:disabled {
+          background: transparent; }
+
+.widgets-container {
+  width: 100%;
+  height: calc(100% - 50px);
+  position: absolute;
+  top: 0; }
+
+/*# sourceMappingURL=app.css.map */

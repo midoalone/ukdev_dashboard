@@ -1,0 +1,69 @@
+/* Pages Bar */
+#pages-bar{
+  height: 50px;
+  width: 100%;
+  bottom: 0;
+  position: absolute;
+  background-image: linear-gradient( rgba(242, 242, 242, 0.9), rgba(222, 222, 222, 0.9));
+  border-top: 1px solid #e3e3e3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .pages-list{
+    display: flex;
+    height: 100%;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+    li{
+      max-width: 100px;
+      margin-right: 10px;
+      position: relative;
+
+      a{
+        display: table;
+        width: 100%;
+        height: 100%;
+
+        &:hover, &.selected{
+          .selection-bar{
+            background: #7f7f7f;
+          }
+
+          input{
+            color: #7f7f7f;
+          }
+        }
+      }
+
+      .selection-bar {
+        height: 5px;
+        margin-top: 10px;
+        background: rgba(0, 0, 0, 0.09);
+      }
+
+      input{
+        color: rgba(0, 0, 0, 0.45);
+        border: none;
+        width: 100%;
+        margin-top: 3px;
+        font-size: 14px;
+        cursor: pointer;
+
+        &:disabled{
+          background: transparent;
+        }
+      }
+    }
+
+  }
+}
+
+.widgets-container{
+  width:100%;
+  height: calc(100% - 50px);
+  position: absolute;
+  top: 0;
+}
