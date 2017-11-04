@@ -1,0 +1,4 @@
+{
+  "title": "Weather Widget",
+  "content": "<div class=\"panel panel-default\">\n  <div class=\"panel-heading\">\n  <h3 class=\"panel-title\">Weather Widget<\/h3>\n  <\/div>\n  <div class=\"panel-body\">\n  Weather Content\n  <\/div>\n  <\/div>"
+}

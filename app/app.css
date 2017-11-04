@@ -38,13 +38,13 @@
         margin-top: 3px;
         font-size: 14px;
         cursor: pointer; }
-        #pages-bar .pages-list li input:disabled {
+        #pages-bar .pages-list li input:read-only {
           background: transparent; }
 
 .widgets-container {
   width: 100%;
-  height: calc(100% - 50px);
-  position: absolute;
-  top: 0; }
+  height: calc(100vh - 50px);
+  top: 0;
+  padding: 20px; }
 
 /*# sourceMappingURL=app.css.map */
