@@ -1,65 +1,36 @@
 <div class="dashboard-container">
 
-
+    <div class="add-widget">
+        <div class="form-group">
+            <select ng-model="widgetSelector" class="form-control">
+                <option value="chart">Chart Widget</option>
+                <option value="weather">Weather Widget</option>
+            </select>
+        </div>
+        <button class="btn btn-primary btn-sm" ng-click="addWidget()">Add Widget</button>
+    </div>
 
     <div id="dashboard-pages">
         <!-- Wrapper for slides -->
         <div class="widgets-container">
-
-            <!--<div gridstack class="grid-stack grid1" options="options" on-change="onChange(event,items)" on-drag-start="onDragStart(event,ui)" on-drag-stop="onDragStop(event,ui)" on-resize-start="onResizeStart(event,ui)" on-resize-stop="onResizeStop(event,ui)">-->
-                <!--<div gridstack-item ng-repeat="w in widgets" class="grid-stack-item" gs-item-x="w.x" gs-item-y="w.y"-->
-                     <!--gs-item-width="w.width" gs-item-height="w.height" gs-item-autopos="1" id="{{w.id}}"-->
-                     <!--on-item-added="onItemAdded(item, w.api)"-->
-                     <!--on-item-removed="onItemRemoved(item)">-->
-                    <!--<div class="grid-stack-item-content"></div>-->
-                <!--</div>-->
-            <!--</div>-->
-
             <div class="grid-stack"></div>
-
         </div>
-
-        <!-- Controls -->
-        <!--<a class="left carousel-control" ng-click="goToPrevPage()">-->
-            <!--<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>-->
-            <!--<span class="sr-only">Previous</span>-->
-        <!--</a>-->
-        <!--<a class="right carousel-control" ng-click="goToNextPage()">-->
-            <!--<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>-->
-            <!--<span class="sr-only">Next</span>-->
-        <!--</a>-->
     </div>
 
-    <div id="pages-bar">
+    <div id="pages-bar" ng-swipe-left="nextPage()" ng-swipe-right="previousPage()">
         <ul class="pages-list">
             <li ng-repeat="page in pages">
-                <a ng-href="#!/dashboard/{{page.slug}}" ng-class="{selected: isPageActive(page.slug)}">
+                <a ng-href="#!/dashboard/{{page.slug}}" ng-class="{selected: isPageActive(page.slug)}" ng-mouseenter="pageHovered(page.slug)" class="destroyer">
                     <div class="selection-bar"></div>
                     <input spellcheck="false" value="{{page.title}}" readonly="" ng-blur="changePageTitle($event, page)" ng-keypress="changePageTitle($event, page)" ng-dblclick="enablePageEdit($event)">
                 </a>
             </li>
         </ul>
-    </div>
 
-    <div class="">
-        <div class="widget-box" ng-repeat="widget in widgets">
-            <h2>{{widget.title}}</h2>
-            <p>{{widget.content}}</p>
-        </div>
-
-        <div class="add-widget">
-            <form ng-submit="addWidget()">
-                <input type="text" ng-model="widget.title" placeholder="Widget Title">
-                <textarea ng-model="widget.content" cols="30" rows="10"
-                          placeholder="Widget Content"></textarea>
-                <input type="submit" value="Add Widget">
-            </form>
-
-            <form ng-submit="addPage()">
-                <input type="text" ng-model="page.title" placeholder="Page Title">
-                <input type="text" ng-model="page.slug" placeholder="Page Slug">
-                <input type="submit" value="Add Page">
-            </form>
+        <div class="add-page" data-toggle="tooltip" data-placement="left" title="Insert New Page">
+            <a class="btn btn-sm btn-default" ng-click="addPage()">
+                <i class="glyphicon glyphicon-plus"></i>
+            </a>
         </div>
     </div>
 

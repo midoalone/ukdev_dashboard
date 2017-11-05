@@ -40,11 +40,33 @@
         cursor: pointer; }
         #pages-bar .pages-list li input:read-only {
           background: transparent; }
+  #pages-bar .add-page {
+    position: absolute;
+    right: 10px; }
+
+.add-widget {
+  position: absolute;
+  right: 0;
+  background: #e2e2e2;
+  padding: 10px;
+  z-index: 1111; }
 
 .widgets-container {
   width: 100%;
   height: calc(100vh - 50px);
   top: 0;
-  padding: 20px; }
+  padding: 20px;
+  overflow: auto; }
+
+.ui-resizable-autohide >
+.remove-widget {
+  display: none; }
+
+.remove-widget {
+  position: absolute !important;
+  bottom: 0;
+  top: auto !important;
+  left: 10px;
+  cursor: pointer; }
 
 /*# sourceMappingURL=app.css.map */
