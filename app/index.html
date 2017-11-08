@@ -10,7 +10,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>My AngularJS App</title>
+    <title>AngularJS Dashboard</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
@@ -20,9 +20,9 @@
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/caf3f0eefa.css">
 
-
-    <link rel="stylesheet" href="bower_components/gridstack/dist/gridstack.css" />
+    <link rel="stylesheet" href="bower_components/gridstack/dist/gridstack.css"/>
     <script src="bower_components/lodash/dist/lodash.min.js"></script>
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
@@ -32,7 +32,42 @@
 </head>
 <body>
 
-<div ng-view></div>
+<header>
+    <div class="brand pull-left"><a href=""><i class="fa fa-bars"></i></a>LOGO <small class="text-muted">Header area</small></div>
+    <div class="pull-right">
+        <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                Profile
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#">Separated link</a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+
+<section class="body-content">
+    <div ng-view></div>
+</section>
+
+<footer>
+    <ul class="footer-nav">
+        <!--<li>-->
+            <!--<a href=""><i class="fa fa-puzzle-piece"></i> Applications</a>-->
+        <!--</li>-->
+        <li>
+            <a href=""><i class="fa fa-home"></i> Home</a>
+        </li>
+        <!--<li>-->
+            <!--<a href=""><i class="fa fa-user"></i> Profile</a>-->
+        <!--</li>-->
+    </ul>
+</footer>
 
 <!-- In production use:
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
