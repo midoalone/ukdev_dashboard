@@ -1,3 +1,56 @@
+header {
+  height: 50px;
+  background: #484848; }
+
+header .dropdown {
+  margin-top: 8px;
+  margin-right: 10px; }
+header .bb-side-menu {
+  position: fixed;
+  width: 90%;
+  max-width: 400px;
+  height: calc(100vh - 98px);
+  top: 50px;
+  left: 0;
+  background: rgba(0, 0, 0, 0.65);
+  z-index: 99999;
+  padding: 20px; }
+  header .bb-side-menu.not-visible {
+    visibility: hidden; }
+  header .bb-side-menu .bb-side-menu-item {
+    color: #fff;
+    text-decoration: none;
+    width: 100%;
+    display: table;
+    background: #222;
+    text-align: center;
+    padding: 5px;
+    margin: 10%;
+    border-radius: 5px;
+    margin: 10px 0; }
+    header .bb-side-menu .bb-side-menu-item:hover {
+      background: #3c3c3c; }
+    header .bb-side-menu .bb-side-menu-item i {
+      font-size: 35px;
+      display: table;
+      width: 100%;
+      margin-top: 5px;
+      margin-bottom: 5px; }
+    header .bb-side-menu .bb-side-menu-item span {
+      font-size: 12px; }
+header .brand {
+  color: #fff;
+  font-weight: 600;
+  line-height: 50px;
+  margin-left: 20px;
+  font-size: 20px; }
+  header .brand a {
+    color: #fff;
+    margin-right: 10px; }
+  header .brand img {
+    max-height: 40px;
+    margin-top: -6px; }
+
 /* Pages Bar */
 #pages-bar {
   height: 50px;
@@ -68,13 +121,9 @@
   left: 10px;
   cursor: pointer; }
 
-header, footer {
+footer {
   height: 50px;
   background: #484848; }
-
-header .dropdown {
-  margin-top: 8px;
-  margin-right: 10px; }
 
 footer {
   display: flex !important;
@@ -115,16 +164,6 @@ footer {
   overflow: auto;
   position: relative;
   width: 100%; }
-
-.brand {
-  color: #fff;
-  font-weight: 600;
-  line-height: 50px;
-  margin-left: 20px;
-  font-size: 20px; }
-  .brand a {
-    color: #fff;
-    margin-right: 10px; }
 
 body {
   overflow: hidden; }

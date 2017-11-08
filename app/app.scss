@@ -1,3 +1,5 @@
+@import "scss/header";
+
 /* Pages Bar */
 #pages-bar{
   height: 50px;
@@ -101,16 +103,9 @@
 
 $darkColor: #484848;
 
-header, footer{
+footer{
   height: 50px;
   background: $darkColor;
-}
-
-header{
-  .dropdown {
-    margin-top: 8px;
-    margin-right: 10px;
-  }
 }
 
 footer{
@@ -165,19 +160,6 @@ footer{
   overflow: auto;
   position: relative;
   width: 100%;
-}
-
-.brand {
-  color: #fff;
-  font-weight: 600;
-  line-height: 50px;
-  margin-left: 20px;
-  font-size: 20px;
-
-  a{
-    color: #fff;
-    margin-right: 10px;
-  }
 }
 
 body{
