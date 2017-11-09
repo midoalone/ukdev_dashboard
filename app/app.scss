@@ -1,4 +1,5 @@
 @import "scss/header";
+@import "scss/footer";
 
 /* Pages Bar */
 #pages-bar{
@@ -99,60 +100,6 @@
   top: auto!important;
   left: 10px;
   cursor: pointer;
-}
-
-$darkColor: #484848;
-
-footer{
-  height: 50px;
-  background: $darkColor;
-}
-
-footer{
-  display: flex!important;
-  align-items: center;
-  justify-content: center;
-
-  .footer-nav{
-    display: flex;
-    height: 100%;
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-
-    li{
-      background: darken($darkColor, 15%);
-      margin: 5px;
-      border-radius: 5px;
-      text-align: center;
-      width: 100px;
-
-      &:hover{
-        background: darken($darkColor, 8%);
-      }
-      
-      a{
-        color: #fff;
-        width: 100%;
-        height: 100%;
-        display: table;
-        font-size: 11px;
-        padding-top: 2px;
-        text-transform: uppercase;
-
-        &:hover{
-          text-decoration: none;
-        }
-        
-        i{
-          font-size: 17px;
-          display: table;
-          width: 100%;
-          margin-bottom: 2px;
-        }
-      }
-    }
-  }
 }
 
 .body-content{

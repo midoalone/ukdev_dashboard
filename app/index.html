@@ -114,19 +114,94 @@
     <div ng-view></div>
 </section>
 
+<link rel="stylesheet" href="css/fontawesome-iconpicker.min.css">
+<script src="https://unpkg.com/vue"></script>
+<script src="js/fontawesome-iconpicker.min.js"></script>
 <footer>
-    <ul class="footer-nav">
-        <!--<li>-->
-            <!--<a href=""><i class="fa fa-puzzle-piece"></i> Applications</a>-->
-        <!--</li>-->
+    <ul class="bb-binned-icons">
         <li>
-            <a href=""><i class="fa fa-home"></i> Home</a>
+            <a href=""><i class="fa fa-home"></i></a>
         </li>
-        <!--<li>-->
-            <!--<a href=""><i class="fa fa-user"></i> Profile</a>-->
-        <!--</li>-->
     </ul>
+
+    <ul class="footer-nav">
+        <li v-for="link in links">
+            <a :href="link.url"><i class="fa" :class="link.icon"></i> {{link.title}}</a>
+        </li>
+    </ul>
+
+    <div class="bb-pin-page">
+        <a href="javascript:" v-on:click="showDialog=!showDialog">
+            <i class="fa fa-thumb-tack"></i>
+        </a>
+    </div>
+
+    <div class="bb-bin-dialog" v-show="showDialog">
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-addon">Title</div>
+                <input type="text" class="form-control input-sm" v-model="defaultLink.title">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-addon">Icon</div>
+                <input type="text" data-placement="top" class="form-control input-sm icp icp-auto" v-model="defaultLink.icon">
+                <div class="input-group-addon"><i class="fa" :class="defaultLink.icon"></i></div>
+            </div>
+        </div>
+
+        <div v-if="!inserted">
+            <button class="btn btn-primary btn-xs" v-on:click="pinCurrentLink">Pin Current Page</button>
+            <button class="btn btn-danger btn-xs" v-on:click="showDialog=false">Cancel</button>
+        </div>
+
+        <div v-if="inserted">
+            Already inserted, You can live edit Icon.
+        </div>
+
+    </div>
 </footer>
+
+<script>
+    var FooterVue = new Vue({
+        el: 'footer',
+        data: {
+            links: [
+                {
+                    title: 'Home',
+                    icon: 'fa-home',
+                    url: 'http://localhost:8000/'
+                }
+            ],
+            defaultLink: {
+                title: document.title,
+                icon: 'fa-home',
+                url: location.href
+            },
+            showDialog: false,
+            inserted: false
+        },
+        methods: {
+            pinCurrentLink: function (){
+                var notEntered = true;
+                $(this.links).each(function (i, link){
+                    if(link.url === location.href) notEntered=false;
+                });
+                if(notEntered) this.links.push(this.defaultLink);
+                this.showDialog = false;
+                this.inserted = true;
+            }
+        }
+    });
+
+    $('.icp-auto').iconpicker();
+
+    $('.icp').on('iconpickerSelected', function(e) {
+        FooterVue.defaultLink.icon = e.iconpickerValue;
+    });
+</script>
 
 <!-- In production use:
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
