@@ -116,6 +116,9 @@ angular.module('myApp.dashboard', ['ngRoute', 'gridstack-angular'])
                 currentIndex = i;
                 if(currentIndex !== 0) prevPage = pages[i-1];
                 if(currentIndex < pages.length) nextPage = pages[i+1];
+
+                document.title = $page.title;
+                console.log($page.title);
             }
         });
 
@@ -167,6 +170,10 @@ angular.module('myApp.dashboard', ['ngRoute', 'gridstack-angular'])
             $http.get('http://localhost:8000/json/'+node.id+'.json').success(function (data) {
                 $('[data-id="'+node.id+'"]').find('.grid-stack-item-content').html(data.content);
             });
+
+            // $http.get('http://winkybox.com/ukdev/dashboard/json/'+node.id+'.json').success(function (data) {
+            //     $('[data-id="'+node.id+'"]').find('.grid-stack-item-content').html(data.content);
+            // });
         }
 
         // Save on change

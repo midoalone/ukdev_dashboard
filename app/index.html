@@ -118,24 +118,48 @@
 <script src="https://unpkg.com/vue"></script>
 <script src="js/fontawesome-iconpicker.min.js"></script>
 <footer>
+    <!-- Pinned Icons -->
     <ul class="bb-binned-icons">
         <li>
             <a href=""><i class="fa fa-home"></i></a>
         </li>
     </ul>
 
+    <!-- Footer Icons -->
     <ul class="footer-nav">
         <li v-for="link in links">
-            <a :href="link.url"><i class="fa" :class="link.icon"></i> {{link.title}}</a>
+            <a :href="link.url" v-if="link.title">
+                <i class="fa" :class="link.icon"></i>
+                <span class="hidden-xs hidden-sm">{{ link.title }}</span>
+            </a>
+
+            <a href="javascript:" v-if="link.folderTitle" v-on:click="showFolderIconsFn">
+                <i class="fa fa-folder"></i>
+                <span class="hidden-xs hidden-sm">{{ link.folderTitle }}</span>
+            </a>
         </li>
     </ul>
 
+    <!-- Folder icons -->
+    <div class="bb-folder-icons-bar" v-if="showFolderIcons">
+        <ul class="footer-nav">
+            <li v-for="link in links" v-if="link.title">
+                <a :href="link.url">
+                    <i class="fa" :class="link.icon"></i>
+                    <span class="hidden-xs hidden-sm">{{ link.title }}</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Pin Button -->
     <div class="bb-pin-page">
-        <a href="javascript:" v-on:click="showDialog=!showDialog">
+        <a href="javascript:" v-on:click="openLinkPopup">
             <i class="fa fa-thumb-tack"></i>
         </a>
     </div>
 
+    <!-- Pin Dialog -->
     <div class="bb-bin-dialog" v-show="showDialog">
         <div class="form-group">
             <div class="input-group">
@@ -152,13 +176,41 @@
             </div>
         </div>
 
+        <div class="form-group" v-if="!inserted">
+            <label>
+                <input type="checkbox" v-model="defaultLink.insertInFolder" />
+                Insert in folder
+            </label>
+        </div>
+
+        <div class="form-group" v-if="defaultLink.insertInFolder">
+            <div class="input-group">
+                <div class="input-group-addon">Select Folder</div>
+                <select class="form-control" v-model="defaultLink.selectedFolder">
+                    <option value=""></option>
+                    <option value="folder1">Folder 1</option>
+                    <option value="folder2">Folder 2</option>
+                    <option value="new">New Folder</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group" v-if="defaultLink.insertInFolder && defaultLink.selectedFolder === 'new'">
+            <div class="input-group">
+                <div class="input-group-addon">Folder Title</div>
+                <input type="text" class="form-control input-sm" v-model="defaultLink.folderTitle">
+            </div>
+        </div>
+
         <div v-if="!inserted">
             <button class="btn btn-primary btn-xs" v-on:click="pinCurrentLink">Pin Current Page</button>
-            <button class="btn btn-danger btn-xs" v-on:click="showDialog=false">Cancel</button>
+            <button class="btn btn-warning btn-xs pull-right" v-on:click="showDialog=false">Cancel</button>
         </div>
 
         <div v-if="inserted">
-            Already inserted, You can live edit Icon.
+            <button class="btn btn-primary btn-xs" v-on:click="editCurrentLink">Edit</button>
+            <button class="btn btn-danger btn-xs" v-on:click="removeCurrentLink">Remove</button>
+            <button class="btn btn-warning btn-xs pull-right" v-on:click="showDialog=false">Cancel</button>
         </div>
 
     </div>
@@ -168,32 +220,108 @@
     var FooterVue = new Vue({
         el: 'footer',
         data: {
-            links: [
-                {
-                    title: 'Home',
-                    icon: 'fa-home',
-                    url: 'http://localhost:8000/'
-                }
-            ],
-            defaultLink: {
-                title: document.title,
-                icon: 'fa-home',
-                url: location.href
-            },
+            links: [],
+            defaultLink: {},
             showDialog: false,
+            showFolderIcons: false,
             inserted: false
         },
         methods: {
             pinCurrentLink: function (){
                 var notEntered = true;
+                var linkToInsert = {};
+
                 $(this.links).each(function (i, link){
                     if(link.url === location.href) notEntered=false;
                 });
-                if(notEntered) this.links.push(this.defaultLink);
+
+                if(notEntered) {
+                    linkToInsert = this.defaultLink;
+
+                    // Insert in folder
+                    if(linkToInsert.insertInFolder){
+
+                        // New folder
+                        if(linkToInsert.selectedFolder === 'new'){
+                            linkToInsert.title = linkToInsert.folderTitle;
+                            linkToInsert.isFolder = true;
+
+                            delete linkToInsert.insertInFolder;
+                            delete linkToInsert.selectedFolder;
+                            delete linkToInsert.url;
+                            delete linkToInsert.title;
+                            delete linkToInsert.icon;
+                        }
+                    }
+
+                    this.links.push(linkToInsert);
+                }
+
                 this.showDialog = false;
                 this.inserted = true;
+
+                saveLinks(this.links);
+            },
+            setDefaultLink: function (){
+                var dLink = {
+                    title: document.title,
+                    icon: 'fa-home',
+                    url: location.href
+                };
+
+                FooterVue.links = getLinks();
+
+                $(FooterVue.links).each(function (i, link){
+                    if(link.url === location.href) dLink = link;
+                });
+
+                this.defaultLink = dLink;
+            },
+            openLinkPopup: function (){
+                checkLinksAndIcons();
+                this.showDialog=!this.showDialog;
+            },
+            removeCurrentLink: function (){
+                var links = [];
+                $(this.links).each(function (i, link){
+                    if(link.url !== location.href) links.push(link);
+                });
+
+                saveLinks(links);
+                checkLinksAndIcons();
+            },
+            editCurrentLink: function (){
+                var $this = this;
+
+                var links = [];
+                $(this.links).each(function (i, link){
+                    if(link.url === location.href) {
+                        links.push({
+                            title: $this.defaultLink.title,
+                            icon: $this.defaultLink.icon,
+                            url: $this.defaultLink.url
+                        });
+                    }else{
+                        links.push(link);
+                    }
+                });
+
+                saveLinks(links);
+                checkLinksAndIcons();
+                this.showDialog = false;
+            },
+            showFolderIconsFn: function (){
+                this.showFolderIcons = !this.showFolderIcons;
             }
         }
+    });
+
+    FooterVue.setDefaultLink();
+    FooterVue.links = getLinks();
+    checkLinksAndIcons();
+
+    $(window).on('hashchange', function() {
+        checkLinksAndIcons();
     });
 
     $('.icp-auto').iconpicker();
@@ -201,6 +329,28 @@
     $('.icp').on('iconpickerSelected', function(e) {
         FooterVue.defaultLink.icon = e.iconpickerValue;
     });
+
+    function checkLinksAndIcons(){
+        var notEntered = true;
+        FooterVue.links = getLinks();
+
+        $(FooterVue.links).each(function (i, link){
+            if(link.url === location.href) notEntered=false;
+        });
+
+        FooterVue.inserted = !notEntered;
+        FooterVue.setDefaultLink();
+    }
+
+    function saveLinks(links){
+        localStorage.setItem("FooterLinks", JSON.stringify(links));
+    }
+
+    function getLinks(){
+        var links = localStorage.getItem("FooterLinks");
+        if(!links) links = '[]';
+        return JSON.parse(links);
+    }
 </script>
 
 <!-- In production use:

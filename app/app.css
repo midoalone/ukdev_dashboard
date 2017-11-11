@@ -103,6 +103,13 @@ footer {
       font-size: 25px;
       line-height: 40px;
       border-radius: 50%; }
+  footer .bb-folder-icons-bar {
+    background: #6b6b6b;
+    position: fixed;
+    width: 100%;
+    height: 50px;
+    bottom: 48px;
+    z-index: 1; }
 
 .bb-pin-page {
   position: absolute;
@@ -129,8 +136,16 @@ footer {
   padding: 10px;
   border: 1px solid #cacaca;
   right: 0;
-  border-bottom: 0; }
+  border-bottom: 0;
+  z-index: 22; }
 
+@media (max-width: 991px) and (min-width: 768px), (max-width: 767px) {
+  footer .footer-nav li {
+    width: auto;
+    padding: 0 10px; }
+    footer .footer-nav li a i {
+      line-height: 37px;
+      font-size: 25px; } }
 /* Pages Bar */
 #pages-bar {
   height: 50px;
