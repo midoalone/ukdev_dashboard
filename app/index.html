@@ -127,15 +127,16 @@
 
     <!-- Footer Icons -->
     <ul class="footer-nav">
-        <li v-for="link in links">
+        <li v-for="link in links" v-if="!link.parent">
             <a :href="link.url" v-if="link.title">
                 <i class="fa" :class="link.icon"></i>
                 <span class="hidden-xs hidden-sm">{{ link.title }}</span>
             </a>
 
-            <a href="javascript:" v-if="link.folderTitle" v-on:click="showFolderIconsFn">
+            <a href="javascript:" v-if="link.isFolder" v-on:click="showFolderIconsFn(link.folderTitle)">
                 <i class="fa fa-folder"></i>
                 <span class="hidden-xs hidden-sm">{{ link.folderTitle }}</span>
+                <i class="fa fa-close remove-folder" v-on:click="removeFolder(link.folderTitle)"></i>
             </a>
         </li>
     </ul>
@@ -143,7 +144,7 @@
     <!-- Folder icons -->
     <div class="bb-folder-icons-bar" v-if="showFolderIcons">
         <ul class="footer-nav">
-            <li v-for="link in links" v-if="link.title">
+            <li v-for="link in links" v-if="link.title && link.parent === openedFolder">
                 <a :href="link.url">
                     <i class="fa" :class="link.icon"></i>
                     <span class="hidden-xs hidden-sm">{{ link.title }}</span>
@@ -188,8 +189,9 @@
                 <div class="input-group-addon">Select Folder</div>
                 <select class="form-control" v-model="defaultLink.selectedFolder">
                     <option value=""></option>
-                    <option value="folder1">Folder 1</option>
-                    <option value="folder2">Folder 2</option>
+                    <option :value="folder.folderTitle" v-for="folder in links" v-if="folder.isFolder">
+                        {{folder.folderTitle}}
+                    </option>
                     <option value="new">New Folder</option>
                 </select>
             </div>
@@ -224,12 +226,14 @@
             defaultLink: {},
             showDialog: false,
             showFolderIcons: false,
-            inserted: false
+            inserted: false,
+            openedFolder: ''
         },
         methods: {
             pinCurrentLink: function (){
                 var notEntered = true;
                 var linkToInsert = {};
+                var $this = this;
 
                 $(this.links).each(function (i, link){
                     if(link.url === location.href) notEntered=false;
@@ -243,18 +247,42 @@
 
                         // New folder
                         if(linkToInsert.selectedFolder === 'new'){
-                            linkToInsert.title = linkToInsert.folderTitle;
                             linkToInsert.isFolder = true;
 
-                            delete linkToInsert.insertInFolder;
-                            delete linkToInsert.selectedFolder;
-                            delete linkToInsert.url;
-                            delete linkToInsert.title;
-                            delete linkToInsert.icon;
+                            this.links.push(linkToInsert);
+
+                            this.links.push({
+                                title: linkToInsert.title,
+                                icon: linkToInsert.icon,
+                                url: linkToInsert.url,
+                                parent: linkToInsert.folderTitle
+                            });
                         }
+
+                        // Select folder
+                        if(linkToInsert.selectedFolder !== 'new' && linkToInsert.selectedFolder !== ''){
+                            var $links = getLinks();
+                            $($links).each(function (i, $link){
+                                if($link.isFolder && $link.folderTitle === linkToInsert.selectedFolder){
+                                    $this.links.push({
+                                        title: linkToInsert.title,
+                                        icon: linkToInsert.icon,
+                                        url: linkToInsert.url,
+                                        parent: linkToInsert.selectedFolder
+                                    });
+                                }
+                            });
+                        }
+
+                        delete linkToInsert.insertInFolder;
+                        delete linkToInsert.selectedFolder;
+                        delete linkToInsert.url;
+                        delete linkToInsert.title;
+                        delete linkToInsert.icon;
+                    }else{
+                        this.links.push(linkToInsert);
                     }
 
-                    this.links.push(linkToInsert);
                 }
 
                 this.showDialog = false;
@@ -292,26 +320,41 @@
             },
             editCurrentLink: function (){
                 var $this = this;
+                var linkObject = {
+                    title: $this.defaultLink.title,
+                    icon: $this.defaultLink.icon,
+                    url: $this.defaultLink.url
+                };
 
                 var links = [];
                 $(this.links).each(function (i, link){
                     if(link.url === location.href) {
-                        links.push({
-                            title: $this.defaultLink.title,
-                            icon: $this.defaultLink.icon,
-                            url: $this.defaultLink.url
-                        });
+                        if(link.parent) linkObject.parent = link.parent;
+                        links.push(linkObject);
                     }else{
                         links.push(link);
                     }
                 });
 
+                this.links = links;
                 saveLinks(links);
                 checkLinksAndIcons();
                 this.showDialog = false;
             },
-            showFolderIconsFn: function (){
+            showFolderIconsFn: function (title){
                 this.showFolderIcons = !this.showFolderIcons;
+                this.openedFolder = title;
+            },
+            removeFolder: function (folder){
+                var links = [];
+                $(this.links).each(function (i, link){
+                    if(link.folderTitle !== folder || link.parent !== folder) links.push(link);
+                });
+
+                console.log(folder);
+
+                saveLinks(links);
+                checkLinksAndIcons();
             }
         }
     });
