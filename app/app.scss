@@ -86,7 +86,20 @@
   overflow: auto;
 
   .grid-stack-item-content{
-    //background: red;
+    overflow: hidden!important;
+
+    .panel{
+      height: 100%;
+
+      .panel-body{
+        height: calc(100% - 38px);
+        overflow: hidden;
+      }
+
+      .panel-title{
+        height: 17px;
+      }
+    }
   }
 }
 
@@ -95,11 +108,11 @@
 }
 
 .remove-widget {
-  position: absolute!important;
-  bottom: 0;
-  top: auto!important;
-  left: 10px;
+  position: absolute !important;
+  top: 12px !important;
+  right: 10px;
   cursor: pointer;
+  color: #a70f0f;
 }
 
 .body-content{

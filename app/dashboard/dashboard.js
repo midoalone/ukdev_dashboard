@@ -150,7 +150,7 @@ angular.module('myApp.dashboard', ['ngRoute', 'gridstack-angular'])
 
         // Initialize gridstack
         $scope.options = {
-            cellHeight: 150,
+            cellHeight: 20,
             verticalMargin: 10
         };
 
@@ -164,16 +164,24 @@ angular.module('myApp.dashboard', ['ngRoute', 'gridstack-angular'])
 
         // Load widgets content
         function getWidgetContent(node){
-            grid.addWidget($('<div data-id="'+node.id+'"><div class="grid-stack-item-content" /><i class="glyphicon glyphicon-trash remove-widget"></i><div/>'),
+            var widgetTemplate = $('#widget-template').html();
+
+            grid.addWidget($('<div data-id="'+node.id+'">'+widgetTemplate+'<div/>'),
                 node.x, node.y, node.width, node.height);
 
-            $http.get('http://localhost:8000/json/'+node.id+'.json').success(function (data) {
-                $('[data-id="'+node.id+'"]').find('.grid-stack-item-content').html(data.content);
-            });
-
-            // $http.get('http://winkybox.com/ukdev/dashboard/json/'+node.id+'.json').success(function (data) {
-            //     $('[data-id="'+node.id+'"]').find('.grid-stack-item-content').html(data.content);
+            // $http.get('http://localhost:8000/json/'+node.id+'.json').success(function (data) {
+            //     var widget = $('[data-id="'+node.id+'"]');
+            //
+            //     widget.find('.panel-heading>h3').text(data.title);
+            //     widget.find('.panel-body').html(data.content);
             // });
+
+            $http.get('http://winkybox.com/ukdev/dashboard/json/api.php?widget='+node.id).success(function (data) {
+                var widget = $('[data-id="'+node.id+'"]');
+
+                widget.find('.panel-heading>h3').text(data.title);
+                widget.find('.panel-body').html(data.content);
+            });
         }
 
         // Save on change
@@ -195,7 +203,7 @@ angular.module('myApp.dashboard', ['ngRoute', 'gridstack-angular'])
         });
 
         $scope.addWidget = function () {
-            var newWidget = {x: 0, y: 0, width: 3, height: 1, id: $scope.widgetSelector};
+            var newWidget = {x: 0, y: 0, width: 3, height: 5, id: $scope.widgetSelector};
             $scope.widgets.push(newWidget);
             localStorage.setItem($routeParams.pageName, angular.toJson($scope.widgets));
 
