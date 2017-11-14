@@ -105,6 +105,24 @@ footer {
     list-style: none;
     padding: 0;
     margin: 0; }
+    footer ul.bb-binned-icons li {
+      float: left;
+      margin-right: 10px; }
+      footer ul.bb-binned-icons li:first-child {
+        margin-right: 20px;
+        position: relative; }
+        footer ul.bb-binned-icons li:first-child a {
+          border-radius: 50%; }
+          footer ul.bb-binned-icons li:first-child a i {
+            font-size: 25px; }
+        footer ul.bb-binned-icons li:first-child:after {
+          content: "";
+          position: absolute;
+          height: 20px;
+          width: 2px;
+          background: #717171;
+          right: -10px;
+          top: 12px; }
     footer ul.bb-binned-icons a {
       background: #efc606;
       color: #000;
@@ -113,7 +131,9 @@ footer {
       text-align: center;
       font-size: 25px;
       line-height: 40px;
-      border-radius: 50%; }
+      border-radius: 7px; }
+      footer ul.bb-binned-icons a i {
+        font-size: 21px; }
   footer .bb-folder-icons-bar {
     background: #6b6b6b;
     position: fixed;
@@ -157,6 +177,70 @@ footer {
     footer .footer-nav li a i {
       line-height: 37px;
       font-size: 25px; } }
+.bb-menu-container {
+  padding: 20px 0;
+  overflow: hidden; }
+  .bb-menu-container ol {
+    list-style: none;
+    padding: 0;
+    margin: 0; }
+    .bb-menu-container ol li.ui-draggable-dragging {
+      z-index: 999999;
+      width: calc(100% - 60px);
+      opacity: 0.9; }
+    .bb-menu-container ol.bb-sortable-static .bb-menu-actions {
+      display: none; }
+    .bb-menu-container ol ol {
+      margin-left: 20px; }
+  .bb-menu-container .bb-menu-item {
+    margin-bottom: 6px;
+    border: 1px solid #dcdcdc;
+    border-radius: 4px; }
+    .bb-menu-container .bb-menu-item .bb-menu-item-title {
+      padding: 10px 15px;
+      color: #333;
+      background-color: #fafafa;
+      border-bottom: 1px solid #dcdcdc;
+      cursor: move;
+      border-radius: 4px 4px 0 0; }
+      .bb-menu-container .bb-menu-item .bb-menu-item-title i {
+        width: 20px; }
+      .bb-menu-container .bb-menu-item .bb-menu-item-title a.bb-menu-collapse {
+        display: table;
+        float: right;
+        width: 40px;
+        text-align: center;
+        line-height: 40px;
+        margin-top: -10px;
+        margin-right: -15px;
+        background: #e8e8e8;
+        border-radius: 0 4px 4px 0;
+        margin-left: 15px;
+        color: #a0a0a0;
+        font-size: 20px; }
+      .bb-menu-container .bb-menu-item .bb-menu-item-title a.bb-menu-delete {
+        color: rgba(208, 6, 6, 0.86); }
+    .bb-menu-container .bb-menu-item .bb-menu-item-body {
+      padding: 10px;
+      background: #fff;
+      border-radius: 0 0 4px 4px; }
+  .bb-menu-container .bb-menu-item-body {
+    display: none; }
+  .bb-menu-container .bb-menu-area {
+    min-height: 50px; }
+    .bb-menu-container .bb-menu-area:empty {
+      border: 1px dashed #c0c0c0; }
+    .bb-menu-container .bb-menu-area:empty:after {
+      content: "Drop Menu Items Here";
+      color: #bdbdbd;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      line-height: 50px; }
+    .bb-menu-container .bb-menu-area:not(:empty) {
+      padding: 10px; }
+
 /* Pages Bar */
 #pages-bar {
   height: 50px;

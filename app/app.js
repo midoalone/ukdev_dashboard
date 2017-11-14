@@ -4,7 +4,8 @@
 angular.module('myApp', [
     'ngRoute',
     'swipe',
-    'myApp.dashboard'
+    'myApp.dashboard',
+    'myApp.menu'
 ]).config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
     $locationProvider.hashPrefix('!');
     $routeProvider.otherwise({redirectTo: '/dashboard/main'});
