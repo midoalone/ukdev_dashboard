@@ -188,46 +188,63 @@ footer {
       z-index: 999999;
       width: calc(100% - 60px);
       opacity: 0.9; }
+      .bb-menu-container ol li.ui-draggable-dragging .bb-add-to-menu {
+        display: none; }
     .bb-menu-container ol.bb-sortable-static .bb-menu-actions {
       display: none; }
-    .bb-menu-container ol ol {
+    .bb-menu-container ol.bb-sortable-static .bb-add-to-menu {
+      color: #a2a2a2;
+      background: #eaeaea;
+      width: 40px;
+      line-height: 40px;
+      margin-top: -10px;
+      margin-right: -15px;
+      text-align: center;
+      border-radius: 0 4px 4px 0; }
+    .bb-menu-container ol.bb-sortable-group > .ui-draggable-dragging {
+      width: calc(100% - 30px) !important; }
+    .bb-menu-container ol ol:not(.bb-sortable-static) {
       margin-left: 20px; }
   .bb-menu-container .bb-menu-item {
     margin-bottom: 6px;
     border: 1px solid #dcdcdc;
     border-radius: 4px; }
-    .bb-menu-container .bb-menu-item .bb-menu-item-title {
-      padding: 10px 15px;
-      color: #333;
-      background-color: #fafafa;
-      border-bottom: 1px solid #dcdcdc;
-      cursor: move;
-      border-radius: 4px 4px 0 0; }
-      .bb-menu-container .bb-menu-item .bb-menu-item-title i {
-        width: 20px; }
-      .bb-menu-container .bb-menu-item .bb-menu-item-title a.bb-menu-collapse {
-        display: table;
-        float: right;
-        width: 40px;
-        text-align: center;
-        line-height: 40px;
-        margin-top: -10px;
-        margin-right: -15px;
-        background: #e8e8e8;
-        border-radius: 0 4px 4px 0;
-        margin-left: 15px;
-        color: #a0a0a0;
-        font-size: 20px; }
-      .bb-menu-container .bb-menu-item .bb-menu-item-title a.bb-menu-delete {
-        color: rgba(208, 6, 6, 0.86); }
     .bb-menu-container .bb-menu-item .bb-menu-item-body {
       padding: 10px;
       background: #fff;
       border-radius: 0 0 4px 4px; }
+  .bb-menu-container .bb-menu-item-title {
+    padding: 10px 15px;
+    color: #333;
+    background-color: #fafafa;
+    border-bottom: 1px solid #dcdcdc;
+    cursor: move;
+    border-radius: 4px 4px 0 0; }
+    .bb-menu-container .bb-menu-item-title i {
+      width: 20px; }
+    .bb-menu-container .bb-menu-item-title a.bb-menu-collapse {
+      display: table;
+      float: right;
+      width: 40px;
+      text-align: center;
+      line-height: 40px;
+      margin-top: -10px;
+      margin-right: -15px;
+      background: #e8e8e8;
+      border-radius: 0 4px 4px 0;
+      margin-left: 15px;
+      color: #a0a0a0;
+      font-size: 20px; }
+    .bb-menu-container .bb-menu-item-title a.bb-menu-delete {
+      color: rgba(208, 6, 6, 0.86); }
   .bb-menu-container .bb-menu-item-body {
     display: none; }
   .bb-menu-container .bb-menu-area {
     min-height: 50px; }
+    .bb-menu-container .bb-menu-area .panel {
+      margin-bottom: 6px; }
+    .bb-menu-container .bb-menu-area .bb-add-to-menu {
+      display: none; }
     .bb-menu-container .bb-menu-area:empty {
       border: 1px dashed #c0c0c0; }
     .bb-menu-container .bb-menu-area:empty:after {
@@ -240,6 +257,17 @@ footer {
       line-height: 50px; }
     .bb-menu-container .bb-menu-area:not(:empty) {
       padding: 10px; }
+  .bb-menu-container .panel-heading.menu-panel {
+    display: inline-table;
+    width: 100%; }
+    .bb-menu-container .panel-heading.menu-panel h3 label {
+      font-size: 14px;
+      margin-right: 10px; }
+    .bb-menu-container .panel-heading.menu-panel h3 input {
+      border: 1px solid #dfdfdf;
+      text-indent: 5px;
+      padding: 5px 0;
+      width: 250px; }
 
 /* Pages Bar */
 #pages-bar {
