@@ -180,6 +180,17 @@ footer {
 .bb-menu-container {
   padding: 20px 0;
   overflow: hidden; }
+  .bb-menu-container .general-menu-settings {
+    display: none; }
+  .bb-menu-container .bb-menu-settings-note {
+    padding: 5px 10px; }
+    .bb-menu-container .bb-menu-settings-note small {
+      margin-right: 20px; }
+  .bb-menu-container [data-display=show] .bb-what-to-show {
+    display: none; }
+  .bb-menu-container .bb-roles-list a button {
+    margin-left: 10px;
+    margin-right: 10px; }
   .bb-menu-container ol {
     list-style: none;
     padding: 0;
@@ -190,17 +201,23 @@ footer {
       opacity: 0.9; }
       .bb-menu-container ol li.ui-draggable-dragging .bb-add-to-menu {
         display: none; }
-    .bb-menu-container ol.bb-sortable-static .bb-menu-actions {
+    .bb-menu-container ol li .level-1 {
+      margin-left: 20px; }
+    .bb-menu-container ol li .level-2 {
+      margin-left: 40px; }
+    .bb-menu-container ol li .level-3 {
+      margin-left: 60px; }
+    .bb-menu-container ol.bb-sortable-static .bb-menu-actions .bb-menu-delete,
+    .bb-menu-container ol.bb-sortable-static .bb-menu-actions .bb-menu-collapse:not(.group-expander) {
       display: none; }
     .bb-menu-container ol.bb-sortable-static .bb-add-to-menu {
       color: #a2a2a2;
-      background: #eaeaea;
+      background: #dedede;
       width: 40px;
-      line-height: 40px;
-      margin-top: -10px;
-      margin-right: -15px;
-      text-align: center;
-      border-radius: 0 4px 4px 0; }
+      line-height: 30px;
+      margin-top: -5px;
+      margin-right: -10px;
+      text-align: center; }
     .bb-menu-container ol.bb-sortable-group > .ui-draggable-dragging {
       width: calc(100% - 30px) !important; }
     .bb-menu-container ol ol:not(.bb-sortable-static) {

@@ -10,8 +10,107 @@
                         </h3>
 
                         <div class="pull-right">
+                            <a href="javascript:" class="btn btn-warning btn-sm bb-menu-settings">
+                                <i class="fa fa-cog"></i>
+                            </a>
                             <a href="javascript:" class="btn btn-primary btn-sm bb-menu-save">Save</a>
                             <a href="javascript:" class="btn btn-success btn-sm">Preview</a>
+                        </div>
+                    </div>
+
+                    <div class="panel-body general-menu-settings">
+                        <div class="bb-menu-form">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <label class="text-primary">How menu display for different visitors types?</label>
+
+                                    <p class="bg-warning bb-menu-settings-note">
+                                        <small><strong>Color Guide: </strong></small>
+                                        <small><i class="fa fa-circle text-success"></i> Display</small>
+                                        <small><i class="fa fa-circle text-danger"></i> Hide</small>
+                                    </p>
+
+                                    <p>
+                                        <a href="" class="btn btn-xs btn-danger">Hide for all</a>
+                                        <a href="" class="btn btn-xs btn-success">Show for all</a>
+                                        <a href="" class="btn btn-xs btn-primary">Show for members</a>
+                                    </p>
+
+                                    <div class="list-group bb-roles-list">
+                                        <a href="javascript:" class="list-group-item" data-title="Guests" data-display="show">
+                                            <i class="fa fa-circle text-success"></i>
+                                            <button class="btn btn-xs btn-info">Hide others</button>
+
+                                            <span class="bb-role-title">Guests</span>
+
+                                            <span class="pull-right text-info bb-what-to-show">
+                                                <small>What to show instead?</small>
+                                                <i class="fa fa-chevron-right"></i>
+                                            </span>
+                                        </a>
+                                        <a href="javascript:" class="list-group-item" data-title="Guests" data-display="hide">
+                                            <i class="fa fa-circle text-danger"></i>
+                                            <button class="btn btn-xs btn-info">Hide others</button>
+
+                                            <span class="bb-role-title">Normal User</span>
+
+                                            <span class="pull-right text-info bb-what-to-show">
+                                                <small>What to show instead?</small>
+                                                <i class="fa fa-chevron-right"></i>
+                                            </span>
+                                        </a>
+                                        <a href="javascript:" class="list-group-item" data-title="Guests" data-display="hide">
+                                            <i class="fa fa-circle text-danger"></i>
+                                            <button class="btn btn-xs btn-info">Hide others</button>
+
+                                            <span class="bb-role-title">Pro User</span>
+
+                                            <span class="pull-right text-info bb-what-to-show">
+                                                <small>What to show instead?</small>
+                                                <i class="fa fa-chevron-right"></i>
+                                            </span>
+                                        </a>
+                                        <a href="javascript:" class="list-group-item" data-title="Guests" data-display="show">
+                                            <i class="fa fa-circle text-danger"></i>
+                                            <button class="btn btn-xs btn-info">Hide others</button>
+
+                                            <span class="bb-role-title">Editor</span>
+
+                                            <span class="pull-right text-info bb-what-to-show">
+                                                <small>What to show instead?</small>
+                                                <i class="fa fa-chevron-right"></i>
+                                            </span>
+                                        </a>
+                                        <a href="javascript:" class="list-group-item" data-title="Guests" data-display="hide">
+                                            <i class="fa fa-circle text-danger"></i>
+                                            <button class="btn btn-xs btn-info">Hide others</button>
+
+                                            <span class="bb-role-title">Contributor</span>
+
+                                            <span class="pull-right text-info bb-what-to-show">
+                                                <small>What to show instead?</small>
+                                                <i class="fa fa-chevron-right"></i>
+                                            </span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Guests</label>
+                                        <select name="display_roles" class="form-control input-sm">
+                                            <option value="">Hide Only</option>
+                                            <option value="">Render Unit</option>
+                                            <option value="">Render another menu</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="bb-other-visitors-panel hide">
+                                        <label class="text-primary">What to display for other visitors?</label>
+                                        <div class="bb-menu-roles-options"></div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -21,7 +120,7 @@
         <div class="row">
             <div class="col-md-4">
                 <ol class="bb-sortable-static bb-sortable-group">
-                    <li data-id="frontend-pages" id="menu-item-front">
+                    <li data-id="frontend-pages" id="menu-item-front" class="no-nest">
                         <div class="panel panel-default">
                             <div class="bb-menu-item-title">
                                 <i></i>
@@ -31,7 +130,7 @@
                                     <a href="javascript:" class="bb-menu-delete">
                                         <i class="fa fa-close"></i>
                                     </a>
-                                    <a href="javascript:" class="bb-menu-collapse expand">
+                                    <a href="javascript:" class="bb-menu-collapse expand group-expander">
                                         <i class="fa fa-caret-up"></i>
                                     </a>
                                 </div>
@@ -73,15 +172,40 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="form-group">
-                                                        <label>Item URL</label>
-                                                        <input type="text" class="form-control input-sm">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label>Item URL</label>
+                                                                <input type="text" class="form-control input-sm">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label>Display Roles</label>
+                                                                <select name="display_roles" class="form-control input-sm">
+                                                                    <option value="">All Visitors</option>
+                                                                    <option value="">Members Only</option>
+                                                                    <option value="">Guests Only</option>
+                                                                    <option value="specific">Specific Roles</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group specific hide">
+                                                        <label>Select Roles</label>
+                                                        <select name="" multiple class="form-control input-sm">
+                                                            <option value="">Normal User</option>
+                                                            <option value="">Pro User</option>
+                                                            <option value="">Editor</option>
+                                                            <option value="">Contributor</option>
+                                                        </select>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </li>
-                                    <li data-id="2" id="menu-item-2">
+                                    <li data-id="2" id="menu-item-2" class="level-1">
                                         <div class="bb-menu-item">
                                             <div class="bb-menu-item-title">
                                                 <i></i>
@@ -115,15 +239,40 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="form-group">
-                                                        <label>Item URL</label>
-                                                        <input type="text" class="form-control input-sm">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label>Item URL</label>
+                                                                <input type="text" class="form-control input-sm">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label>Display Roles</label>
+                                                                <select name="display_roles" class="form-control input-sm">
+                                                                    <option value="">All Visitors</option>
+                                                                    <option value="">Members Only</option>
+                                                                    <option value="">Guests Only</option>
+                                                                    <option value="specific">Specific Roles</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group specific hide">
+                                                        <label>Select Roles</label>
+                                                        <select name="" multiple class="form-control input-sm">
+                                                            <option value="">Normal User</option>
+                                                            <option value="">Pro User</option>
+                                                            <option value="">Editor</option>
+                                                            <option value="">Contributor</option>
+                                                        </select>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </li>
-                                    <li data-id="3" id="menu-item-3">
+                                    <li data-id="3" id="menu-item-3" class="level-2">
                                         <div class="bb-menu-item">
                                             <div class="bb-menu-item-title">
                                                 <i></i>
@@ -157,15 +306,40 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="form-group">
-                                                        <label>Item URL</label>
-                                                        <input type="text" class="form-control input-sm">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label>Item URL</label>
+                                                                <input type="text" class="form-control input-sm">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label>Display Roles</label>
+                                                                <select name="display_roles" class="form-control input-sm">
+                                                                    <option value="">All Visitors</option>
+                                                                    <option value="">Members Only</option>
+                                                                    <option value="">Guests Only</option>
+                                                                    <option value="specific">Specific Roles</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group specific hide">
+                                                        <label>Select Roles</label>
+                                                        <select name="" multiple class="form-control input-sm">
+                                                            <option value="">Normal User</option>
+                                                            <option value="">Pro User</option>
+                                                            <option value="">Editor</option>
+                                                            <option value="">Contributor</option>
+                                                        </select>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </li>
-                                    <li data-id="4" id="menu-item-4">
+                                    <li data-id="4" id="menu-item-4" class="level-3">
                                         <div class="bb-menu-item">
                                             <div class="bb-menu-item-title">
                                                 <i></i>
@@ -199,42 +373,44 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="form-group">
-                                                        <label>Item URL</label>
-                                                        <input type="text" class="form-control input-sm">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label>Item URL</label>
+                                                                <input type="text" class="form-control input-sm">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label>Display Roles</label>
+                                                                <select name="display_roles" class="form-control input-sm">
+                                                                    <option value="">All Visitors</option>
+                                                                    <option value="">Members Only</option>
+                                                                    <option value="">Guests Only</option>
+                                                                    <option value="specific">Specific Roles</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group specific hide">
+                                                        <label>Select Roles</label>
+                                                        <select name="" multiple class="form-control input-sm">
+                                                            <option value="">Normal User</option>
+                                                            <option value="">Pro User</option>
+                                                            <option value="">Editor</option>
+                                                            <option value="">Contributor</option>
+                                                        </select>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </li>
-                                </ol>
-
-                            </div>
-                        </div>
-                    </li>
-                    <li data-id="custom-pages" id="menu-item-custom">
-                        <div class="panel panel-default">
-                            <div class="bb-menu-item-title">
-                                <i></i>
-                                <strong>Custom Pages</strong>
-
-                                <div class="bb-menu-actions pull-right">
-                                    <a href="javascript:" class="bb-menu-delete">
-                                        <i class="fa fa-close"></i>
-                                    </a>
-                                    <a href="javascript:" class="bb-menu-collapse expand">
-                                        <i class="fa fa-caret-up"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="panel-body bb-menu-group-body">
-
-                                <ol class="bb-sortable-static">
-                                    <li data-id="1" id="menu-item-1">
+                                    <li data-id="5" id="menu-item-5">
                                         <div class="bb-menu-item">
                                             <div class="bb-menu-item-title">
                                                 <i></i>
-                                                <span>Home</span>
+                                                <span>Offers</span>
 
                                                 <div class="bb-menu-actions pull-right">
                                                     <a href="javascript:" class="bb-menu-delete">
@@ -264,19 +440,44 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="form-group">
-                                                        <label>Item URL</label>
-                                                        <input type="text" class="form-control input-sm">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label>Item URL</label>
+                                                                <input type="text" class="form-control input-sm">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label>Display Roles</label>
+                                                                <select name="display_roles" class="form-control input-sm">
+                                                                    <option value="">All Visitors</option>
+                                                                    <option value="">Members Only</option>
+                                                                    <option value="">Guests Only</option>
+                                                                    <option value="specific">Specific Roles</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group specific hide">
+                                                        <label>Select Roles</label>
+                                                        <select name="" multiple class="form-control input-sm">
+                                                            <option value="">Normal User</option>
+                                                            <option value="">Pro User</option>
+                                                            <option value="">Editor</option>
+                                                            <option value="">Contributor</option>
+                                                        </select>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </li>
-                                    <li data-id="2" id="menu-item-2">
+                                    <li data-id="6" id="menu-item-6" class="level-1">
                                         <div class="bb-menu-item">
                                             <div class="bb-menu-item-title">
                                                 <i></i>
-                                                <span>About</span>
+                                                <span>Special Offers</span>
 
                                                 <div class="bb-menu-actions pull-right">
                                                     <a href="javascript:" class="bb-menu-delete">
@@ -306,93 +507,34 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="form-group">
-                                                        <label>Item URL</label>
-                                                        <input type="text" class="form-control input-sm">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li data-id="3" id="menu-item-3">
-                                        <div class="bb-menu-item">
-                                            <div class="bb-menu-item-title">
-                                                <i></i>
-                                                <span>Contact</span>
-
-                                                <div class="bb-menu-actions pull-right">
-                                                    <a href="javascript:" class="bb-menu-delete">
-                                                        <i class="fa fa-close"></i>
-                                                    </a>
-                                                    <a href="javascript:" class="bb-menu-collapse">
-                                                        <i class="fa fa-caret-down"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="bb-menu-item-body">
-                                                <div class="bb-menu-form">
                                                     <div class="row">
-                                                        <div class="col-md-4">
+                                                        <div class="col-md-6">
                                                             <div class="form-group">
-                                                                <label>Icon</label>
-                                                                <input type="text" data-placement="right"
-                                                                       class="form-control input-sm icp-auto">
+                                                                <label>Item URL</label>
+                                                                <input type="text" class="form-control input-sm">
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-8">
+                                                        <div class="col-md-6">
                                                             <div class="form-group">
-                                                                <label>Item Title</label>
-                                                                <input type="text"
-                                                                       class="form-control input-sm menu-item-title">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label>Item URL</label>
-                                                        <input type="text" class="form-control input-sm">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li data-id="4" id="menu-item-4">
-                                        <div class="bb-menu-item">
-                                            <div class="bb-menu-item-title">
-                                                <i></i>
-                                                <span>Privacy</span>
-
-                                                <div class="bb-menu-actions pull-right">
-                                                    <a href="javascript:" class="bb-menu-delete">
-                                                        <i class="fa fa-close"></i>
-                                                    </a>
-                                                    <a href="javascript:" class="bb-menu-collapse">
-                                                        <i class="fa fa-caret-down"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="bb-menu-item-body">
-                                                <div class="bb-menu-form">
-                                                    <div class="row">
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                <label>Icon</label>
-                                                                <input type="text" data-placement="right"
-                                                                       class="form-control input-sm icp-auto">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-8">
-                                                            <div class="form-group">
-                                                                <label>Item Title</label>
-                                                                <input type="text"
-                                                                       class="form-control input-sm menu-item-title">
+                                                                <label>Display Roles</label>
+                                                                <select name="display_roles" class="form-control input-sm">
+                                                                    <option value="">All Visitors</option>
+                                                                    <option value="">Members Only</option>
+                                                                    <option value="">Guests Only</option>
+                                                                    <option value="specific">Specific Roles</option>
+                                                                </select>
                                                             </div>
                                                         </div>
                                                     </div>
 
-                                                    <div class="form-group">
-                                                        <label>Item URL</label>
-                                                        <input type="text" class="form-control input-sm">
+                                                    <div class="form-group specific hide">
+                                                        <label>Select Roles</label>
+                                                        <select name="" multiple class="form-control input-sm">
+                                                            <option value="">Normal User</option>
+                                                            <option value="">Pro User</option>
+                                                            <option value="">Editor</option>
+                                                            <option value="">Contributor</option>
+                                                        </select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -418,6 +560,17 @@
     </div>
 </div>
 
+<script type="template" id="option_template">
+    <div class="form-group">
+        <label>[name]</label>
+        <select name="" class="form-control input-sm">
+            <option value="">Hide Only</option>
+            <option value="">Render Unit</option>
+            <option value="">Render another menu</option>
+        </select>
+    </div>
+</script>
+
 <script>
     $(function () {
 
@@ -428,19 +581,37 @@
         });
 
         $('.bb-menu-area').nestedSortable({
-            isTree: true,
-            items: 'li',
+//            isTree: true,
+//            items: 'li',
             change: function () {
                 iconSelector();
             },
             receive: function () {
                 iconSelector();
+            },
+            stop: function(event, ui) {
+                if ($(ui.item).closest('ol').parent('li').hasClass("no-nest")) {
+                    $("ol.bb-menu-area").sortable("cancel");
+                }
             }
         });
 
         $('.bb-menu-save').click(function (){
             var menuJson = $('ol.bb-menu-area').nestedSortable('toHierarchy', {startDepthCount: 0});
             $("#log").text(JSON.stringify(menuJson));
+        });
+
+        $('.bb-menu-settings').click(function (){
+            var $this = $(this);
+            var body = $this.closest('.panel').find('.panel-body');
+
+            if ($this.hasClass("expand")) {
+                body.slideUp();
+                $this.removeClass("expand");
+            } else {
+                body.slideDown();
+                $this.addClass("expand");
+            }
         });
 
         function iconSelector() {
@@ -516,6 +687,41 @@
                 var $this = $(this);
                 var item = $this.closest('li[data-id]').clone();
                 $('.bb-menu-area').append(item);
+            })
+            .on('change', '[name=display_roles]', function (){
+                var specific = $(this).closest('.bb-menu-form').find('.specific');
+                var others = $(this).closest('.bb-menu-form').find('.bb-other-visitors-panel');
+                var value = $(this).val();
+
+                if(value === 'specific'){
+                    specific.removeClass('hide');
+                    others.removeClass('hide');
+                    $('[name=selected_roles]').trigger('click');
+                }else{
+                    others.addClass('hide');
+
+                    if(value !== "all"){
+                        others.removeClass('hide');
+                    }
+
+                    specific.addClass('hide');
+                }
+            })
+            .on('click', '[name=selected_roles]', function (){
+                var $this = $(this);
+                var notSelected = $this.find('option:not(:selected)');
+                var rolesOptions = $('.bb-menu-roles-options');
+                var optionsHTML = "";
+
+                rolesOptions.html('');
+
+                $(notSelected).each(function (i, name){
+                    var template = $('#option_template').html();
+                    template = template.replace('[name]', $(this).val());
+                    optionsHTML += template;
+                });
+
+                rolesOptions.html(optionsHTML);
             });
     });
 </script>
