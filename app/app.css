@@ -180,17 +180,19 @@ footer {
 .bb-menu-container {
   padding: 20px 0;
   overflow: hidden; }
-  .bb-menu-container .general-menu-settings {
-    display: none; }
   .bb-menu-container .bb-menu-settings-note {
     padding: 5px 10px; }
     .bb-menu-container .bb-menu-settings-note small {
       margin-right: 20px; }
   .bb-menu-container [data-display=show] .bb-what-to-show {
     display: none; }
-  .bb-menu-container .bb-roles-list a button {
-    margin-left: 10px;
-    margin-right: 10px; }
+  .bb-menu-container .bb-roles-list a {
+    text-decoration: none; }
+    .bb-menu-container .bb-roles-list a button {
+      margin-left: 10px;
+      margin-right: 10px; }
+  .bb-menu-container .bb-roles-list .list-group-item .btn-group {
+    margin: 0 10px; }
   .bb-menu-container ol {
     list-style: none;
     padding: 0;

@@ -31,83 +31,220 @@
                                     </p>
 
                                     <p>
-                                        <a href="" class="btn btn-xs btn-danger">Hide for all</a>
-                                        <a href="" class="btn btn-xs btn-success">Show for all</a>
-                                        <a href="" class="btn btn-xs btn-primary">Show for members</a>
+                                        <a href="" class="btn btn-xs btn-danger bb-bulk-roles" data-bulk="hide">Hide for all</a>
+                                        <a href="" class="btn btn-xs btn-success bb-bulk-roles" data-bulk="show">Show for all</a>
+                                        <a href="" class="btn btn-xs btn-primary bb-bulk-roles" data-bulk="members">Show for members</a>
                                     </p>
 
-                                    <div class="list-group bb-roles-list">
-                                        <a href="javascript:" class="list-group-item" data-title="Guests" data-display="show">
+                                    <div class="form-group has-feedback">
+                                        <label>Filter roles</label>
+                                        <input type="text" class="form-control" id="bb-role-filter" placeholder="Type search keyword">
+                                        <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                                    </div>
+
+                                    <ul class="list-group bb-roles-list">
+                                        <li class="list-group-item" data-role="guests" data-title="Guests" data-display="show">
                                             <i class="fa fa-circle text-success"></i>
-                                            <button class="btn btn-xs btn-info">Hide others</button>
+
+                                            <span class="btn-group">
+                                                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="javascript:" class="bb-role-hide-me">Hide me</a></li>
+                                                    <li><a href="javascript:" class="bb-role-hide-others">Hide others</a></li>
+                                                </ul>
+                                            </span>
 
                                             <span class="bb-role-title">Guests</span>
 
-                                            <span class="pull-right text-info bb-what-to-show">
+                                            <a href="javascript:" class="pull-right text-info bb-what-to-show">
                                                 <small>What to show instead?</small>
                                                 <i class="fa fa-chevron-right"></i>
+                                            </a>
+                                        </li>
+                                        <li class="list-group-item" data-role="normal-user" data-title="Normal User" data-display="show">
+                                            <i class="fa fa-circle text-success"></i>
+
+                                            <span class="btn-group">
+                                                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="javascript:" class="bb-role-hide-me">Hide me</a></li>
+                                                    <li><a href="javascript:" class="bb-role-hide-others">Hide others</a></li>
+                                                </ul>
                                             </span>
-                                        </a>
-                                        <a href="javascript:" class="list-group-item" data-title="Guests" data-display="hide">
-                                            <i class="fa fa-circle text-danger"></i>
-                                            <button class="btn btn-xs btn-info">Hide others</button>
 
                                             <span class="bb-role-title">Normal User</span>
 
-                                            <span class="pull-right text-info bb-what-to-show">
+                                            <a href="javascript:" class="pull-right text-info bb-what-to-show">
                                                 <small>What to show instead?</small>
                                                 <i class="fa fa-chevron-right"></i>
+                                            </a>
+                                        </li>
+                                        <li class="list-group-item" data-role="pro-user" data-title="Pro User" data-display="show">
+                                            <i class="fa fa-circle text-success"></i>
+
+                                            <span class="btn-group">
+                                                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="javascript:" class="bb-role-hide-me">Hide me</a></li>
+                                                    <li><a href="javascript:" class="bb-role-hide-others">Hide others</a></li>
+                                                </ul>
                                             </span>
-                                        </a>
-                                        <a href="javascript:" class="list-group-item" data-title="Guests" data-display="hide">
-                                            <i class="fa fa-circle text-danger"></i>
-                                            <button class="btn btn-xs btn-info">Hide others</button>
 
                                             <span class="bb-role-title">Pro User</span>
 
-                                            <span class="pull-right text-info bb-what-to-show">
+                                            <a href="javascript:" class="pull-right text-info bb-what-to-show">
                                                 <small>What to show instead?</small>
                                                 <i class="fa fa-chevron-right"></i>
+                                            </a>
+                                        </li>
+                                        <li class="list-group-item" data-role="editor" data-title="Editor" data-display="show">
+                                            <i class="fa fa-circle text-success"></i>
+
+                                            <span class="btn-group">
+                                                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="javascript:" class="bb-role-hide-me">Hide me</a></li>
+                                                    <li><a href="javascript:" class="bb-role-hide-others">Hide others</a></li>
+                                                </ul>
                                             </span>
-                                        </a>
-                                        <a href="javascript:" class="list-group-item" data-title="Guests" data-display="show">
-                                            <i class="fa fa-circle text-danger"></i>
-                                            <button class="btn btn-xs btn-info">Hide others</button>
 
                                             <span class="bb-role-title">Editor</span>
 
-                                            <span class="pull-right text-info bb-what-to-show">
+                                            <a href="javascript:" class="pull-right text-info bb-what-to-show">
                                                 <small>What to show instead?</small>
                                                 <i class="fa fa-chevron-right"></i>
+                                            </a>
+                                        </li>
+                                        <li class="list-group-item" data-role="contributor" data-title="Contributor" data-display="show">
+                                            <i class="fa fa-circle text-success"></i>
+
+                                            <span class="btn-group">
+                                                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="javascript:" class="bb-role-hide-me">Hide me</a></li>
+                                                    <li><a href="javascript:" class="bb-role-hide-others">Hide others</a></li>
+                                                </ul>
                                             </span>
-                                        </a>
-                                        <a href="javascript:" class="list-group-item" data-title="Guests" data-display="hide">
-                                            <i class="fa fa-circle text-danger"></i>
-                                            <button class="btn btn-xs btn-info">Hide others</button>
 
                                             <span class="bb-role-title">Contributor</span>
 
-                                            <span class="pull-right text-info bb-what-to-show">
+                                            <a href="javascript:" class="pull-right text-info bb-what-to-show">
                                                 <small>What to show instead?</small>
                                                 <i class="fa fa-chevron-right"></i>
-                                            </span>
-                                        </a>
-                                    </div>
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </div>
                                 <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Guests</label>
-                                        <select name="display_roles" class="form-control input-sm">
-                                            <option value="">Hide Only</option>
-                                            <option value="">Render Unit</option>
-                                            <option value="">Render another menu</option>
-                                        </select>
+                                    <div class="what-to-show-panel hide" data-for="guests">
+                                        <div class="form-group">
+                                            <label>What to show for "Guests" role?</label>
+                                            <select name="guests_show" class="form-control input-sm">
+                                                <option value="hide">Hide Only</option>
+                                                <option value="unit">Render Unit</option>
+                                                <option value="menu">Render another menu</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group hide" data-render="unit">
+                                            <label>Select unit</label>
+                                            <button class="btn btn-primary form-control">BB Button for units</button>
+                                        </div>
+
+                                        <div class="form-group hide" data-render="menu">
+                                            <label>Select menu</label>
+                                            <button class="btn btn-info form-control">BB Button for menus</button>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="bb-other-visitors-panel hide">
-                                        <label class="text-primary">What to display for other visitors?</label>
-                                        <div class="bb-menu-roles-options"></div>
+                                    <div class="what-to-show-panel hide" data-for="normal-user">
+                                        <div class="form-group">
+                                            <label>What to show for "Normal User" role?</label>
+                                            <select name="normal-user_show" class="form-control input-sm">
+                                                <option value="hide">Hide Only</option>
+                                                <option value="unit">Render Unit</option>
+                                                <option value="menu">Render another menu</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group hide" data-render="unit">
+                                            <label>Select unit</label>
+                                            <button class="btn btn-primary form-control">BB Button for units</button>
+                                        </div>
+
+                                        <div class="form-group hide" data-render="menu">
+                                            <label>Select menu</label>
+                                            <button class="btn btn-info form-control">BB Button for menus</button>
+                                        </div>
+                                    </div>
+                                    <div class="what-to-show-panel hide" data-for="pro-user">
+                                        <div class="form-group">
+                                            <label>What to show for "Pro User" role?</label>
+                                            <select name="pro-user_show" class="form-control input-sm">
+                                                <option value="hide">Hide Only</option>
+                                                <option value="unit">Render Unit</option>
+                                                <option value="menu">Render another menu</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group hide" data-render="unit">
+                                            <label>Select unit</label>
+                                            <button class="btn btn-primary form-control">BB Button for units</button>
+                                        </div>
+
+                                        <div class="form-group hide" data-render="menu">
+                                            <label>Select menu</label>
+                                            <button class="btn btn-info form-control">BB Button for menus</button>
+                                        </div>
+                                    </div>
+                                    <div class="what-to-show-panel hide" data-for="editor">
+                                        <div class="form-group">
+                                            <label>What to show for "Editor" role?</label>
+                                            <select name="editor_show" class="form-control input-sm">
+                                                <option value="hide">Hide Only</option>
+                                                <option value="unit">Render Unit</option>
+                                                <option value="menu">Render another menu</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group hide" data-render="unit">
+                                            <label>Select unit</label>
+                                            <button class="btn btn-primary form-control">BB Button for units</button>
+                                        </div>
+
+                                        <div class="form-group hide" data-render="menu">
+                                            <label>Select menu</label>
+                                            <button class="btn btn-info form-control">BB Button for menus</button>
+                                        </div>
+                                    </div>
+                                    <div class="what-to-show-panel hide" data-for="contributor">
+                                        <div class="form-group">
+                                            <label>What to show for "Contributor" role?</label>
+                                            <select name="contributor_show" class="form-control input-sm">
+                                                <option value="hide">Hide Only</option>
+                                                <option value="unit">Render Unit</option>
+                                                <option value="menu">Render another menu</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group hide" data-render="unit">
+                                            <label>Select unit</label>
+                                            <button class="btn btn-primary form-control">BB Button for units</button>
+                                        </div>
+
+                                        <div class="form-group hide" data-render="menu">
+                                            <label>Select menu</label>
+                                            <button class="btn btn-info form-control">BB Button for menus</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -722,6 +859,92 @@
                 });
 
                 rolesOptions.html(optionsHTML);
+            })
+            // Role list and functions
+            .on('click', '.bb-roles-list>.list-group-item .bb-role-hide-others', function (){
+                var $this = $(this),
+                    $element = $this.closest(".list-group-item");
+
+                $('.bb-roles-list>.list-group-item').each(function (){
+                    $(this)
+                        .attr("data-display", "hide")
+                        .find("i.fa-circle").removeClass("text-success").addClass("text-danger");
+                });
+
+                $element
+                    .attr("data-display", "show")
+                    .find("i.fa-circle").addClass("text-success").removeClass("text-danger");
+            })
+            .on('click', '.bb-roles-list>.list-group-item .bb-role-hide-me', function (){
+                var $this = $(this),
+                    $element = $this.closest(".list-group-item");
+
+
+                if(!$this.attr("data-hidden") || $this.attr("data-hidden") === "false"){
+                    $this.text("Show me").attr("data-hidden", true);
+                    $element
+                        .attr("data-display", "hide")
+                        .find("i.fa-circle").removeClass("text-success").addClass("text-danger");
+                }else{
+                    $this.text("Hide me").attr("data-hidden", false);
+                    $element
+                        .attr("data-display", "show")
+                        .find("i.fa-circle").addClass("text-success").removeClass("text-danger");
+                }
+
+            })
+            .on('click', '.bb-roles-list>.list-group-item .bb-what-to-show', function (){
+                var role = $(this).closest(".list-group-item").data("role");
+
+                $('.what-to-show-panel').addClass("hide");
+                $('.what-to-show-panel[data-for='+role+']').removeClass("hide");
+            })
+            .on('change', '.what-to-show-panel select', function (){
+                var value = $(this).val();
+                var $panel = $(this).closest(".what-to-show-panel");
+
+                $panel.find('[data-render]').addClass("hide");
+                $panel.find('[data-render='+value+']').removeClass("hide");
+            })
+            .on('input', '#bb-role-filter', function (){
+                var $this = $(this),
+                    filter = $this.val().toUpperCase();
+
+                $('.bb-roles-list>.list-group-item').each(function (){
+                    if($(this).attr("data-title").toUpperCase().indexOf(filter) > -1){
+                        $(this).removeClass("hide");
+                    }else{
+                        $(this).addClass("hide");
+                    }
+                });
+            })
+            .on('click', '.bb-bulk-roles', function (){
+                var action = $(this).data("bulk"),
+                    removeClass, addClass, display;
+
+                if(action === "hide"){
+                    removeClass = "text-success";
+                    addClass = "text-danger";
+                    display = "hide";
+                }
+                else if(action === "show" || action === "members"){
+                    removeClass = "text-danger";
+                    addClass = "text-success";
+                    display = "show";
+                }
+
+                $('.bb-roles-list>.list-group-item').each(function (){
+                    $(this)
+                        .attr("data-display", display)
+                        .find("i.fa-circle").removeClass(removeClass).addClass(addClass);
+                });
+
+                if(action === "members"){
+                    $('.bb-roles-list>.list-group-item[data-role=guests]')
+                        .attr("data-display", "hide")
+                        .find("i.fa-circle").removeClass("text-success").addClass("text-danger");
+                }
+
             });
     });
 </script>

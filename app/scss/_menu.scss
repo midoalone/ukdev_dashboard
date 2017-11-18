@@ -3,7 +3,7 @@
   overflow: hidden;
 
   .general-menu-settings{
-    display: none;
+    //display: none;
   }
 
   .bb-menu-settings-note{
@@ -20,10 +20,16 @@
 
   .bb-roles-list{
     a {
+      text-decoration: none;
+
       button{
         margin-left: 10px;
         margin-right: 10px;
       }
+    }
+
+    .list-group-item .btn-group {
+      margin: 0 10px;
     }
   }
 
