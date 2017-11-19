@@ -180,35 +180,46 @@ footer {
 .bb-menu-container {
   padding: 20px 0;
   overflow: hidden; }
+  .bb-menu-container .ui-sortable-placeholder {
+    background: #fbf7d9;
+    visibility: visible !important;
+    margin-bottom: 6px; }
+  .bb-menu-container .general-menu-settings {
+    display: none; }
   .bb-menu-container .bb-menu-settings-note {
     padding: 5px 10px; }
     .bb-menu-container .bb-menu-settings-note small {
       margin-right: 20px; }
   .bb-menu-container [data-display=show] .bb-what-to-show {
     display: none; }
+  .bb-menu-container .bb-what-to-show {
+    margin-left: 10px; }
   .bb-menu-container .bb-roles-list a {
     text-decoration: none; }
     .bb-menu-container .bb-roles-list a button {
       margin-left: 10px;
       margin-right: 10px; }
-  .bb-menu-container .bb-roles-list .list-group-item .btn-group {
-    margin: 0 10px; }
+  .bb-menu-container .bb-roles-list .list-group-item {
+    cursor: pointer; }
+    .bb-menu-container .bb-roles-list .list-group-item:hover, .bb-menu-container .bb-roles-list .list-group-item.active {
+      background: #efefef;
+      color: #000; }
   .bb-menu-container ol {
     list-style: none;
     padding: 0;
     margin: 0; }
+    .bb-menu-container ol.bb-sortable-static .level-1 {
+      margin-left: 20px; }
+    .bb-menu-container ol.bb-sortable-static .level-2 {
+      margin-left: 40px; }
+    .bb-menu-container ol.bb-sortable-static .level-3 {
+      margin-left: 60px; }
     .bb-menu-container ol li.ui-draggable-dragging {
       z-index: 999999;
       width: calc(100% - 60px);
       opacity: 0.9; }
       .bb-menu-container ol li.ui-draggable-dragging .bb-add-to-menu {
         display: none; }
-    .bb-menu-container ol li .level-1 {
-      margin-left: 20px; }
-    .bb-menu-container ol li .level-2 {
-      margin-left: 40px; }
-    .bb-menu-container ol li .level-3 {
-      margin-left: 60px; }
     .bb-menu-container ol.bb-sortable-static .bb-menu-actions .bb-menu-delete,
     .bb-menu-container ol.bb-sortable-static .bb-menu-actions .bb-menu-collapse:not(.group-expander) {
       display: none; }
@@ -259,7 +270,8 @@ footer {
   .bb-menu-container .bb-menu-item-body {
     display: none; }
   .bb-menu-container .bb-menu-area {
-    min-height: 50px; }
+    min-height: 50px;
+    position: relative; }
     .bb-menu-container .bb-menu-area .panel {
       margin-bottom: 6px; }
     .bb-menu-container .bb-menu-area .bb-add-to-menu {

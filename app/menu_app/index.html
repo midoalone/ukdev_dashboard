@@ -1,5 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Menu Application</title>
+
+    <!-- Menu -->
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/caf3f0eefa.css">
+    <link rel="stylesheet" href="css/bootstrap-switch.min.css">
+    <link rel="stylesheet" href="css/fontawesome-iconpicker.min.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="js/jquery.mjs.nestedSortable.js"></script>
+    <script type="text/javascript" src="js/bootstrap-switch.min.js"></script>
+    <script src="js/fontawesome-iconpicker.min.js"></script>
+    <script type="text/javascript" src="js/functions.js"></script>
+</head>
+<body>
+
 <div class="bb-menu-container">
     <div class="container-fluid">
+        <!-- Settings -->
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-default">
@@ -25,9 +50,9 @@
                                     <label class="text-primary">How menu display for different visitors types?</label>
 
                                     <p>
-                                        <a href="" class="btn btn-xs btn-danger bb-bulk-roles" data-bulk="hide">Hide for all</a>
-                                        <a href="" class="btn btn-xs btn-success bb-bulk-roles" data-bulk="show">Show for all</a>
-                                        <a href="" class="btn btn-xs btn-primary bb-bulk-roles" data-bulk="members">Show for members</a>
+                                        <a href="javascript:" class="btn btn-xs btn-danger bb-bulk-roles" data-bulk="hide">Hide for all</a>
+                                        <a href="javascript:" class="btn btn-xs btn-success bb-bulk-roles" data-bulk="show">Show for all</a>
+                                        <a href="javascript:" class="btn btn-xs btn-primary bb-bulk-roles" data-bulk="members">Show for members</a>
                                     </p>
 
                                     <div class="form-group has-feedback">
@@ -203,6 +228,7 @@
             </div>
         </div>
 
+        <!-- Menu -->
         <div class="row">
             <div class="col-md-4">
                 <ol class="bb-sortable-static bb-sortable-group">
@@ -646,259 +672,5 @@
     </div>
 </div>
 
-<script type="template" id="option_template">
-    <div class="form-group">
-        <label>[name]</label>
-        <select name="" class="form-control input-sm">
-            <option value="">Hide Only</option>
-            <option value="">Render Unit</option>
-            <option value="">Render another menu</option>
-        </select>
-    </div>
-</script>
-
-<script>
-    $(function () {
-
-        $(".bb-switch").bootstrapSwitch({
-            onText: "Show",
-            offText: "Hide",
-            size: "mini",
-            onColor: "success",
-            offColor: "danger"
-        });
-
-        $('.bb-sortable-static li').draggable({
-            helper: "clone",
-            revert: "invalid",
-            connectToSortable: '.bb-menu-area'
-        });
-
-        $('.bb-menu-area').nestedSortable({
-            change: function () {
-                iconSelector();
-            },
-            receive: function () {
-                iconSelector();
-            },
-            stop: function(event, ui) {
-                if ($(ui.item).closest('ol').parent('li').hasClass("no-nest")) {
-                    $("ol.bb-menu-area").sortable("cancel");
-                }
-            }
-        });
-
-        $('.bb-menu-save').click(function (){
-            var menuJson = $('ol.bb-menu-area').nestedSortable('toHierarchy', {startDepthCount: 0});
-            $("#log").text(JSON.stringify(menuJson));
-        });
-
-        $('.bb-menu-settings').click(function (){
-            var $this = $(this);
-            var body = $this.closest('.panel').find('.panel-body');
-
-            if ($this.hasClass("expand")) {
-                body.slideUp();
-                $this.removeClass("expand");
-            } else {
-                body.slideDown();
-                $this.addClass("expand");
-            }
-        });
-
-        function iconSelector() {
-            $('.icp-auto').iconpicker();
-            $('.icp-auto').on('iconpickerSelected', function (e) {
-                var icon = e.iconpickerValue;
-                $(this).closest('.bb-menu-item').find('.bb-menu-item-title>i').attr('class', 'fa ' + icon);
-            });
-
-            $('.bb-menu-item').each(function () {
-                var $this = $(this),
-                    title = $this.find('.bb-menu-item-title>span').text();
-
-                $this.find('.menu-item-title').val(title);
-            });
-        }
-
-        $('.bb-sortable-static .bb-menu-item-title').each(function (){
-            var $this = $(this);
-
-            $this.append(
-                '<a href="javascript:" class="bb-add-to-menu pull-right">\n' +
-                ' <i class="fa fa-plus"></i>\n' +
-                '</a>'
-            );
-        });
-
-        $('.bb-sortable-static:not(.bb-sortable-group)>li').each(function (){
-            var $this = $(this);
-
-            var title = $this.find('.bb-menu-item-title>span').text();
-            $this.attr("data-title", title);
-            $this.attr("data-icon", '');
-
-            $this.find('.menu-item-title').val(title);
-        });
-
-        $('body')
-            .on('input', '.menu-item-title', function () {
-                var value = $(this).val();
-                $(this).closest('.bb-menu-item').find('.bb-menu-item-title>span').text(value);
-                $(this).closest('li').attr('data-title', value);
-            })
-            .on('click', '.bb-menu-collapse', function () {
-                var $this = $(this);
-                var body = $this.closest('.bb-menu-item').find('.bb-menu-item-body');
-                var bodyGroup = $this.closest('li').find('.bb-menu-group-body');
-                var icon = $this.find('i');
-
-                if ($this.hasClass("expand")) {
-                    body.slideUp();
-                    bodyGroup.slideUp();
-                    $this.removeClass("expand");
-                    icon.addClass("fa-caret-down");
-                    icon.removeClass('fa-caret-up');
-                } else {
-                    body.slideDown();
-                    bodyGroup.slideDown();
-                    $this.addClass("expand");
-                    icon.removeClass("fa-caret-down");
-                    icon.addClass('fa-caret-up');
-                }
-            })
-            .on('click', '.bb-menu-delete', function () {
-                var $this = $(this);
-                var item = $this.closest('li');
-
-                item.slideUp(function () {
-                    $(this).remove();
-                });
-            })
-            .on('click', '.bb-add-to-menu', function (){
-                var $this = $(this);
-                var item = $this.closest('li[data-id]').clone();
-                $('.bb-menu-area').append(item);
-            })
-            .on('change', '[name=display_roles]', function (){
-                var specific = $(this).closest('.bb-menu-form').find('.specific');
-                var others = $(this).closest('.bb-menu-form').find('.bb-other-visitors-panel');
-                var value = $(this).val();
-
-                if(value === 'specific'){
-                    specific.removeClass('hide');
-                    others.removeClass('hide');
-                    $('[name=selected_roles]').trigger('click');
-                }else{
-                    others.addClass('hide');
-
-                    if(value !== "all"){
-                        others.removeClass('hide');
-                    }
-
-                    specific.addClass('hide');
-                }
-            })
-            .on('click', '[name=selected_roles]', function (){
-                var $this = $(this);
-                var notSelected = $this.find('option:not(:selected)');
-                var rolesOptions = $('.bb-menu-roles-options');
-                var optionsHTML = "";
-
-                rolesOptions.html('');
-
-                $(notSelected).each(function (i, name){
-                    var template = $('#option_template').html();
-                    template = template.replace('[name]', $(this).val());
-                    optionsHTML += template;
-                });
-
-                rolesOptions.html(optionsHTML);
-            })
-            // Role list and functions
-            .on('click', '.bb-roles-list>.list-group-item .bb-role-hide-others', function (){
-                var $this = $(this),
-                    $element = $this.closest(".list-group-item");
-
-                $('.bb-roles-list>.list-group-item').each(function (){
-                    $(this)
-                        .attr("data-display", "hide")
-                        .find("i.fa-circle").removeClass("text-success").addClass("text-danger");
-                });
-
-                $element
-                    .attr("data-display", "show")
-                    .find("i.fa-circle").addClass("text-success").removeClass("text-danger");
-            })
-            .on('switchChange.bootstrapSwitch', '.bb-roles-list>.list-group-item .bb-role-toggle', function(event, state) {
-                var $this = $(this),
-                    $element = $this.closest(".list-group-item");
-
-                $('.what-to-show-panel').addClass("hide");
-                $('.bb-roles-list>.list-group-item').removeClass("active");
-
-                if(state === true){
-                    $element.attr("data-display", "show");
-                }else{
-                    $element.attr("data-display", "hide");
-                }
-            })
-            .on('click', '.bb-roles-list>.list-group-item', function (){
-                var checked = $(this).find('[type=checkbox].bb-role-toggle:not(:checked)').val();
-                $('.bb-roles-list>.list-group-item').removeClass("active");
-
-                if(checked){
-                    var role = $(this).data("role");
-                    $(this).addClass("active");
-
-                    $('.what-to-show-panel').addClass("hide");
-                    $('.what-to-show-panel[data-for='+role+']').removeClass("hide");
-                }
-
-            })
-            .on('change', '.what-to-show-panel select', function (){
-                var value = $(this).val();
-                var $panel = $(this).closest(".what-to-show-panel");
-
-                $panel.find('[data-render]').addClass("hide");
-                $panel.find('[data-render='+value+']').removeClass("hide");
-            })
-            .on('input', '#bb-role-filter', function (){
-                var $this = $(this),
-                    filter = $this.val().toUpperCase();
-
-                $('.bb-roles-list>.list-group-item').each(function (){
-                    if($(this).attr("data-title").toUpperCase().indexOf(filter) > -1){
-                        $(this).removeClass("hide");
-                    }else{
-                        $(this).addClass("hide");
-                    }
-                });
-            })
-            .on('click', '.bb-bulk-roles', function (){
-                var action = $(this).data("bulk"), display;
-
-                $('.what-to-show-panel').addClass("hide");
-                $('.bb-roles-list>.list-group-item').removeClass("active");
-
-                if(action === "hide"){
-                    display = "hide";
-                }
-                else if(action === "show" || action === "members"){
-                    display = "show";
-                }
-
-                $('.bb-roles-list>.list-group-item').each(function (){
-                    $(this).attr("data-display", display);
-                    if(display === "show") $(this).find('[type=checkbox].bb-role-toggle').bootstrapSwitch('state', true);
-                    if(display === "hide") $(this).find('[type=checkbox].bb-role-toggle').bootstrapSwitch('state', false);
-                });
-
-                if(action === "members"){
-                    $('.bb-roles-list>.list-group-item[data-role=guests]').attr("data-display", "hide");
-                    $('.bb-roles-list>.list-group-item[data-role=guests]').find('[type=checkbox].bb-role-toggle').bootstrapSwitch('state', false);
-                }
-
-            });
-    });
-</script>
+</body>
+</html>
