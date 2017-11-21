@@ -29,10 +29,8 @@
         // Reset completeOutput variable
         completeOutput = '';
 
-        $(jsonObject).each(function (i, object){
-            // Add to output string
-            recursiveLoop(object, options);
-        });
+        // Start recursive loop
+        recursiveLoop(jsonObject, options, 0);
 
         if(options.renderTo !== null){
             $(options.renderTo).html(completeOutput);
@@ -48,54 +46,66 @@
     };
 
     // Recursive function
-    function recursiveLoop(object, options){
-        var keys = Object.keys(object),
-            itemElement = options.itemElement,
-            recursiveElement = options.recursiveElement,
-            hasChildren = false;
+    function recursiveLoop(objects, options, level){
 
-        var template;
+        // Check for objects
+        if(!objects.length > 0) return true;
 
-        if(object.children && object.children.length > 0) hasChildren = true;
-
-        // If template string defined
-        if(options.itemTemplate !== null){
-            template = options.itemTemplate;
+        // Check max levels
+        if(options.maxLevels > 0){
+            if(level > options.maxLevels) return true;
         }
 
-        // If template selector defined
-        if(options.itemTemplateSelector !== null && $(options.itemTemplateSelector).html()){
-            template = $(options.itemTemplateSelector).html();
-        }
+        $(objects).each(function (i, object){
 
-        $(keys).each(function (i, key){
-            // Skip "children" key
-            if(key === "children") return true;
+            var keys = Object.keys(object),
+                itemElement = options.itemElement,
+                recursiveElement = options.recursiveElement,
+                hasChildren = false;
 
-            // Replace template variables with JSON values
-            template = template.replace(new RegExp('{' + key + '}', 'g'), object[key]);
-        });
+            var template;
 
-        completeOutput += '<' + itemElement;
+            if(object.children && object.children.length > 0) hasChildren = true;
 
-        if(hasChildren) completeOutput += ' class="' + options.parentClass + '"';
+            // If template string defined
+            if(options.itemTemplate !== null){
+                template = options.itemTemplate;
+            }
 
-        completeOutput += '>';
+            // If template selector defined
+            if(options.itemTemplateSelector !== null && $(options.itemTemplateSelector).html()){
+                template = $(options.itemTemplateSelector).html();
+            }
 
-        completeOutput += template;
+            $(keys).each(function (i, key){
+                // Skip "children" key
+                if(key === "children") return true;
 
-        if(hasChildren){
-            completeOutput += '<'+recursiveElement+'>';
-
-            // Loop in children
-            $(object.children).each(function (i, childObject){
-                recursiveLoop(childObject, options);
+                // Replace template variables with JSON values
+                template = template.replace(new RegExp('{' + key + '}', 'g'), object[key] + level);
             });
 
-            completeOutput += '</'+recursiveElement+'>';
-        }
+            completeOutput += '<' + itemElement;
 
-        completeOutput += '</'+itemElement+'>';
+            if(hasChildren) completeOutput += ' class="' + options.parentClass + '"';
+
+            completeOutput += '>';
+
+            completeOutput += template;
+
+            if(hasChildren){
+                completeOutput += '<'+recursiveElement+'>';
+
+                // Loop through children
+                recursiveLoop(object.children, options, ++level);
+
+                completeOutput += '</'+recursiveElement+'>';
+            }
+
+            completeOutput += '</'+itemElement+'>';
+
+        });
+
     }
 
     // Default plugin options
@@ -108,6 +118,7 @@
         itemElement: 'li',
         recursiveElement: 'ol',
         parentClass: 'parent',
+        maxLevels: -1,
 
         // Callbacks
         afterRender: function (){}
