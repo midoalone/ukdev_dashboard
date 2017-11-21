@@ -7,7 +7,7 @@
     <!-- Menu -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/caf3f0eefa.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/menu.css">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -18,8 +18,38 @@
 <script id="item-template" type="template">
     <div class="bb-menu-item">
         <div class="bb-menu-item-title">
-            <i></i>
+            <a href="javascript:" data-action="show-children"><i class="fa fa-plus"></i></a>
             <span>{title}</span>
+
+            <div class="bb-menu-actions pull-right">
+                <a href="javascript:" class="bb-menu-collapse">
+                    <i class="fa fa-caret-down"></i>
+                </a>
+            </div>
+        </div>
+        <div class="bb-menu-item-body">
+            <div class="bb-menu-form">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Icon</label>
+                            <input type="text" data-placement="right" class="form-control input-sm" value="{icon}"
+                                   readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label>Item Title</label>
+                            <input type="text" class="form-control input-sm" value="{title}" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Item URL</label>
+                    <input type="text" class="form-control input-sm" value="{url}" readonly>
+                </div>
+            </div>
         </div>
     </div>
 </script>
@@ -29,28 +59,130 @@
 
         var menuJson = [{
             title: "Home",
+            icon: "fa-home",
+            url: '/home',
             children: [{
-                title: "Email Us"
+                title: "Email Us",
+                icon: "fa-envelope",
+                url: '/email'
             },{
+                title: "Email Us",
+                icon: "fa-envelope",
+                url: '/email'
+            }, {
                 title: "Contact",
+                icon: "fa-phone",
+                url: '/contact',
                 children: [{
-                    title: "About"
+                    title: "About",
+                    icon: "fa-user",
+                    url: '/about',
+                    children: [{
+                        title: "About",
+                        icon: "fa-user",
+                        url: '/about',
+                        children: [{
+                            title: "About",
+                            icon: "fa-user",
+                            url: '/about',
+                            children: [{
+                                title: "About",
+                                icon: "fa-user",
+                                url: '/about'
+                            }]
+                        }]
+                    }]
                 }]
             }]
         }, {
-            title: "Privacy"
+            title: "Privacy",
+            icon: "fa-bars",
+            url: '/privacy',
+            children: [{
+                title: "About",
+                icon: "fa-user",
+                url: '/about',
+                children: [{
+                    title: "About",
+                    icon: "fa-user",
+                    url: '/about',
+                    children: [{
+                        title: "About",
+                        icon: "fa-user",
+                        url: '/about',
+                        children: [{
+                            title: "About",
+                            icon: "fa-user",
+                            url: '/about',
+                            children: [{
+                                title: "About",
+                                icon: "fa-user",
+                                url: '/about'
+                            }]
+                        }]
+                    }]
+                }]
+            },{
+                title: "Email Us",
+                icon: "fa-envelope",
+                url: '/email'
+            }]
+        },{
+            title: "Email Us",
+            icon: "fa-envelope",
+            url: '/email'
         }];
 
         $('#log').val(JSON.stringify(menuJson, undefined, 4));
 
-        $('#render').click(function (){
+        $('#render').click(function () {
             var JsonString = $('#log').val();
 
             $('.bb-sortable-static').menuRenderer({
                 JSONString: JsonString,
                 itemTemplateSelector: '#item-template'
             });
+
         }).trigger('click');
+
+        $('body')
+            .on('click', '.bb-menu-collapse', function () {
+                var $this = $(this);
+                var body = $this.closest('.bb-menu-item').find('.bb-menu-item-body');
+                var bodyGroup = $this.closest('li').find('.bb-menu-group-body');
+                var icon = $this.find('i');
+
+                if ($this.hasClass("expand")) {
+                    body.slideUp();
+                    bodyGroup.slideUp();
+                    $this.removeClass("expand");
+                    icon.addClass("fa-caret-down");
+                    icon.removeClass('fa-caret-up');
+                } else {
+                    body.slideDown();
+                    bodyGroup.slideDown();
+                    $this.addClass("expand");
+                    icon.removeClass("fa-caret-down");
+                    icon.addClass('fa-caret-up');
+                }
+            })
+            .on('click', '[data-action=show-children]', function (){
+                var $this = $(this);
+                var icon = $this.find('i');
+                var parentItem = $this.closest('.parent').find('ol').first();
+
+                if ($this.hasClass("expand")) {
+                    parentItem.slideUp();
+                    $this.removeClass("expand");
+                    icon.removeClass("fa-minus");
+                    icon.addClass('fa-plus');
+                } else {
+                    parentItem.slideDown();
+                    $this.addClass("expand");
+                    icon.addClass("fa-minus");
+                    icon.removeClass('fa-plus');
+                }
+            });
     });
 </script>
 
@@ -59,27 +191,7 @@
         <!-- Menu -->
         <div class="row">
             <div class="col-md-4">
-                <ol class="bb-sortable-group">
-                    <li data-id="frontend-pages" id="menu-item-front" class="no-nest">
-                        <div class="panel panel-default">
-                            <div class="bb-menu-item-title">
-                                <i></i>
-                                <strong>Frontend Pages</strong>
-
-                                <div class="bb-menu-actions pull-right">
-                                    <a href="javascript:" class="bb-menu-collapse expand group-expander">
-                                        <i class="fa fa-caret-up"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="panel-body bb-menu-group-body">
-
-                                <ol class="bb-sortable-static"></ol>
-
-                            </div>
-                        </div>
-                    </li>
-                </ol>
+                <ol class="bb-sortable-static"></ol>
             </div>
 
             <div class="col-md-8">

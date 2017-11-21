@@ -1,0 +1,83 @@
+.bb-menu-container{
+  padding: 20px 0;
+  overflow: hidden;
+
+  ol{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    &.bb-sortable-static{
+
+      .bb-menu-actions{
+
+      }
+
+      [data-action=show-children]{
+        display: none;
+      }
+
+      li.parent > .bb-menu-item [data-action=show-children]{
+        display: inline;
+      }
+
+      li.parent ol{
+        //display: none;
+      }
+    }
+
+    ol:not(.bb-sortable-static) {
+      margin-left: 20px;
+    }
+  }
+
+  .bb-menu-item{
+    margin-bottom: 6px;
+    border: 1px solid #dcdcdc;
+    border-radius: 4px;
+
+    .bb-menu-item-body{
+      padding: 10px;
+      background: #fff;
+      border-radius: 0 0 4px 4px;
+    }
+
+  }
+
+  .bb-menu-item-title{
+    padding: 10px 15px;
+    color: #333;
+    background-color: #fafafa;
+    border-bottom: 1px solid #dcdcdc;
+    cursor: move;
+    border-radius: 4px 4px 0 0;
+
+    i{
+      width: 20px;
+    }
+
+    a.bb-menu-collapse {
+      display: table;
+      float: right;
+      width: 40px;
+      text-align: center;
+      line-height: 40px;
+      margin-top: -10px;
+      margin-right: -15px;
+      background: #e8e8e8;
+      border-radius: 0 4px 4px 0;
+      margin-left: 15px;
+      color: #a0a0a0;
+      font-size: 20px;
+    }
+
+    a.bb-menu-delete {
+      color: rgba(208, 6, 6, 0.86);
+    }
+  }
+
+  .bb-menu-item-body{
+    display: none;
+  }
+
+}

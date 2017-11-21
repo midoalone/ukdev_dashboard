@@ -14,16 +14,13 @@
             var $this = $(this);
 
             if(options.JSONString !== null){
-                $.menuRenderer(options);
+                $.menuRenderer(options, $this);
             }
-
-            $this.html(completeOutput);
-
         });
     };
 
     // Static method.
-    $.menuRenderer = function(options) {
+    $.menuRenderer = function(options, $this) {
         // Override default options with passed-in options.
         options = $.extend({}, $.menuRenderer.options, options);
 
@@ -33,19 +30,33 @@
         completeOutput = '';
 
         $(jsonObject).each(function (i, object){
-
             // Add to output string
             recursiveLoop(object, options);
         });
+
+        if(options.renderTo !== null){
+            $(options.renderTo).html(completeOutput);
+        }
+
+        if($this){
+            // Show output
+            $this.html(completeOutput);
+        }
+
+        // Callback after render
+        options.afterRender();
     };
 
     // Recursive function
     function recursiveLoop(object, options){
         var keys = Object.keys(object),
             itemElement = options.itemElement,
-            recursiveElement = options.recursiveElement;
+            recursiveElement = options.recursiveElement,
+            hasChildren = false;
 
         var template;
+
+        if(object.children && object.children.length > 0) hasChildren = true;
 
         // If template string defined
         if(options.itemTemplate !== null){
@@ -62,14 +73,18 @@
             if(key === "children") return true;
 
             // Replace template variables with JSON values
-            template = template.replace("{"+key+"}", object[key]);
+            template = template.replace(new RegExp('{' + key + '}', 'g'), object[key]);
         });
 
-        completeOutput += '<'+itemElement+'>';
+        completeOutput += '<' + itemElement;
+
+        if(hasChildren) completeOutput += ' class="' + options.parentClass + '"';
+
+        completeOutput += '>';
 
         completeOutput += template;
 
-        if(object.children && object.children.length > 0){
+        if(hasChildren){
             completeOutput += '<'+recursiveElement+'>';
 
             // Loop in children
@@ -85,10 +100,16 @@
 
     // Default plugin options
     $.menuRenderer.options = {
+        // Default options
+        renderTo: null,
         JSONString: null,
         itemTemplate: null,
         itemTemplateSelector: null,
         itemElement: 'li',
-        recursiveElement: 'ol'
+        recursiveElement: 'ol',
+        parentClass: 'parent',
+
+        // Callbacks
+        afterRender: function (){}
     };
 })(jQuery);
