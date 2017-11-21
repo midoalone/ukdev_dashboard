@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JSON Menu Render</title>
+
+    <!-- Menu -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/caf3f0eefa.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<script id="item-template" type="template">
+    <li data-id="1" id="">
+        <div class="bb-menu-item">
+            <div class="bb-menu-item-title">
+                <i></i>
+                <span>{title}</span>
+            </div>
+        </div>
+    </li>
+</script>
+
+<script>
+    jQuery(function ($) {
+
+        var menuJson = [{
+            title: "Home",
+            children: [{
+                title: "Contact",
+                children: [{
+                    title: "About"
+                }]
+            }]
+        }, {
+            title: "About"
+        }];
+
+        $('#log').val(JSON.stringify(menuJson));
+
+        function BBMenuJsonRender($json) {
+            var jsonObject = JSON.parse($json);
+            console.log(jsonObject);
+        }
+
+        $('#render').click(function (){
+            var JsonString = $('#log').val();
+            BBMenuJsonRender(JsonString);
+        });
+    });
+</script>
+
+<div class="bb-menu-container">
+    <div class="container-fluid">
+        <!-- Menu -->
+        <div class="row">
+            <div class="col-md-4">
+                <ol class="bb-sortable-static bb-sortable-group">
+                    <li data-id="frontend-pages" id="menu-item-front" class="no-nest">
+                        <div class="panel panel-default">
+                            <div class="bb-menu-item-title">
+                                <i></i>
+                                <strong>Frontend Pages</strong>
+
+                                <div class="bb-menu-actions pull-right">
+                                    <a href="javascript:" class="bb-menu-collapse expand group-expander">
+                                        <i class="fa fa-caret-up"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="panel-body bb-menu-group-body">
+
+                                <ol class="bb-sortable-static">
+                                    <li data-id="1" id="menu-item-1">
+                                        <div class="bb-menu-item">
+                                            <div class="bb-menu-item-title">
+                                                <i></i>
+                                                <span>Home</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li data-id="2" id="menu-item-2" class="level-1">
+                                        <div class="bb-menu-item">
+                                            <div class="bb-menu-item-title">
+                                                <i></i>
+                                                <span>About</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li data-id="3" id="menu-item-3" class="level-2">
+                                        <div class="bb-menu-item">
+                                            <div class="bb-menu-item-title">
+                                                <i></i>
+                                                <span>Contact</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li data-id="4" id="menu-item-4" class="level-3">
+                                        <div class="bb-menu-item">
+                                            <div class="bb-menu-item-title">
+                                                <i></i>
+                                                <span>Privacy</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li data-id="5" id="menu-item-5">
+                                        <div class="bb-menu-item">
+                                            <div class="bb-menu-item-title">
+                                                <i></i>
+                                                <span>Offers</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li data-id="6" id="menu-item-6" class="level-1">
+                                        <div class="bb-menu-item">
+                                            <div class="bb-menu-item-title">
+                                                <i></i>
+                                                <span>Special Offers</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ol>
+
+                            </div>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="col-md-8">
+                <div class="form-group">
+                    <textarea class="form-control" id="log" rows="15" placeholder="JSON LOG"></textarea>
+                </div>
+
+                <button id="render" class="btn btn-primary">Render JSON</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
