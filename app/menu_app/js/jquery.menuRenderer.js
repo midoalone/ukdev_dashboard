@@ -24,13 +24,20 @@
         // Override default options with passed-in options.
         options = $.extend({}, $.menuRenderer.options, options);
 
-        var jsonObject = JSON.parse(options.JSONString);
+        var jsonObject = JSON.parse(options.JSONString),
+            modifiedJSON= [];
+
+        // Modify JSON to mark top level items
+        $(jsonObject).each(function (i, object){
+            object.topLevel = true;
+            modifiedJSON.push(object);
+        });
 
         // Reset completeOutput variable
         completeOutput = '';
 
         // Start recursive loop
-        recursiveLoop(jsonObject, options, 0);
+        recursiveLoop(modifiedJSON, options, 0);
 
         if(options.renderTo !== null){
             $(options.renderTo).html(completeOutput);
@@ -48,16 +55,18 @@
     // Recursive function
     function recursiveLoop(objects, options, level){
 
-        // Check for objects
-        if(!objects.length > 0) return true;
-
         // Check max levels
-        if(options.maxLevels > 0){
+        if(options.maxLevels > -1){
             if(level > options.maxLevels) return true;
         }
 
+        // Loop through objects
         $(objects).each(function (i, object){
 
+            // Check if object is a top level
+            if(object.topLevel) level=0;
+
+            // Define variables
             var keys = Object.keys(object),
                 itemElement = options.itemElement,
                 recursiveElement = options.recursiveElement,
@@ -82,7 +91,7 @@
                 if(key === "children") return true;
 
                 // Replace template variables with JSON values
-                template = template.replace(new RegExp('{' + key + '}', 'g'), object[key] + level);
+                template = template.replace(new RegExp('{' + key + '}', 'g'), object[key]);
             });
 
             completeOutput += '<' + itemElement;

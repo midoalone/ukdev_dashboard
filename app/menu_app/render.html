@@ -141,7 +141,7 @@
             $('.bb-sortable-static').menuRenderer({
                 JSONString: JsonString,
                 itemTemplateSelector: '#item-template',
-                maxLevels: -1
+                maxLevels: $('#max-levels').val()
             });
 
         }).trigger('click');
@@ -200,6 +200,7 @@
                     <textarea class="form-control" id="log" rows="20" placeholder="JSON LOG"></textarea>
                 </div>
 
+                <input type="number" id="max-levels" value="-1" min="-1">
                 <button id="render" class="btn btn-primary">Render JSON</button>
             </div>
         </div>
