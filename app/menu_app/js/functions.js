@@ -203,6 +203,7 @@ jQuery(function ($){
 
             item.slideUp(function () {
                 $(this).remove();
+                autoSave();
             });
         })
         .on('click', '.bb-add-to-menu', function (){
