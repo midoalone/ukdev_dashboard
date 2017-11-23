@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Classify Application</title>
+
+    <!-- Classify -->
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/caf3f0eefa.css">
+    <link rel="stylesheet" href="css/fontawesome-iconpicker.min.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="js/jquery.mjs.nestedSortable.js"></script>
+    <script src="js/fontawesome-iconpicker.min.js"></script>
+    <script type="text/javascript" src="js/functions.js"></script>
+</head>
+<body>
+
+<script type="template" id="classify-item-template">
+    <li data-id="1" data-title="{title}" data-icon="{icon}">
+        <div class="bb-classify-item">
+            <div class="bb-classify-item-title">
+                <a href="javascript:" class="bb-classify-drag-handler">
+                    <i class="fa fa-arrows"></i>
+                </a>
+                <i class="fa {icon}"></i>
+                <span>{title}</span>
+
+                <div class="bb-classify-actions pull-right">
+                    <a href="javascript:" class="bb-classify-delete">
+                        <i class="fa fa-close"></i>
+                    </a>
+                    <a href="javascript:" class="bb-classify-collapse">
+                        <i class="fa fa-caret-down"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="bb-classify-item-body">
+                <div class="bb-classify-form">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Icon</label>
+                                <input type="text" class="form-control input-sm icp" value="{icon}" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label>Item Title</label>
+                                <input type="text" class="form-control input-sm classify-item-title" value="{title}">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Item URL</label>
+                        <input type="text" class="form-control input-sm item-url" value="/home" readonly>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </li>
+</script>
+
+<!-- Add Item Modal -->
+<div class="modal fade" id="addItemModal" tabindex="-1" role="dialog" aria-labelledby="addItemModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="addItemModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Item Title</label>
+                    <input type="text" class="form-control" name="item_title">
+                </div>
+                <div class="form-group">
+                    <label>Icon</label>
+                    <input type="text" name="item_icon" class="form-control input-sm icp" readonly>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary btn-sm add-item" data-to="bb-main-items">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    jQuery(function (){
+        $('.add-item').click(function (){
+            var $this = $(this),
+                list = $('#' + $this.data('to')),
+                itemTemplate = $('#classify-item-template').html();
+
+            itemTemplate = itemTemplate.replace(new RegExp('{title}', 'g'), $('[name=item_title]').val());
+            itemTemplate = itemTemplate.replace(new RegExp('{icon}', 'g'), $('[name=item_icon]').val());
+
+            list.append(itemTemplate);
+            $('#addItemModal').modal('hide');
+        });
+
+        $('body').on('click', '#bb-main-items>li .bb-classify-item-title', function (){
+            var $this = $(this),
+                item = $this.closest('li');
+
+            $('.bb-classify-item-title').removeClass('active');
+            $this.addClass("active");
+        });
+    });
+</script>
+
+<div class="bb-classify-container">
+    <div class="container-fluid">
+        <!-- Classify -->
+        <div class="row">
+            <div class="col-md-4">
+                <div data-placement="inline" class="icp icp-auto"></div>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <button class="btn btn-default btn-block" data-toggle="modal" data-target="#addItemModal">
+                                <i class="fa fa-plus"></i> Add Main Item
+                            </button>
+                        </div>
+                        <ol class="bb-classify-area" id="bb-main-items"></ol>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <button class="btn btn-default btn-block btn-sm add-item" data-to="bb-children-items">
+                                <i class="fa fa-plus"></i> Add Child Item
+                            </button>
+                        </div>
+
+                        <ol class="bb-classify-area" id="bb-children-items"></ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <textarea class="form-control" id="log" rows="15" placeholder="JSON LOG"></textarea>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,219 @@
+.bb-classify-container{
+  padding: 20px 0;
+  overflow: hidden;
+
+  .iconpicker-container{
+    display: none;
+    position: fixed;
+    z-index: 111111111;
+
+    .iconpicker-popover.popover.inline{
+      margin: 0!important;
+    }
+  }
+
+  .ui-sortable-placeholder {
+    background: #fbf7d9;
+    visibility: visible!important;
+    margin-bottom:6px;
+  }
+
+  .bb-classify-drag-handler{
+    float: left;
+    width: 40px;
+    text-align: center;
+    line-height: 40px;
+    margin-top: -10px;
+    margin-left: -15px;
+    color: #a0a0a0;
+    font-size: 18px;
+    cursor: move;
+  }
+
+  .general-classify-settings{
+    display: none;
+  }
+
+  ol{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+
+    &.bb-sortable-static{
+      .level-1 {
+        margin-left: 20px;
+      }
+
+      .level-2 {
+        margin-left: 40px;
+      }
+
+      .level-3 {
+        margin-left: 60px;
+      }
+    }
+
+    li{
+      &.ui-draggable-dragging {
+        z-index: 999999;
+        width: calc(100% - 60px);
+        opacity: 0.9;
+
+        .bb-add-to-classify{
+          display: none;
+        }
+      }
+
+    }
+
+    &.bb-sortable-static{
+
+      .bb-classify-actions{
+
+        .bb-classify-delete,
+        .bb-classify-collapse:not(.group-expander){
+          display: none;
+        }
+      }
+
+      .bb-add-to-classify {
+        color: #a2a2a2;
+        background: #dedede;
+        width: 40px;
+        line-height: 30px;
+        margin-top: -5px;
+        margin-right: -10px;
+        text-align: center;
+      }
+    }
+
+    &.bb-sortable-group{
+      > .ui-draggable-dragging {
+        width: calc(100% - 30px)!important;
+      }
+    }
+
+    ol:not(.bb-sortable-static) {
+      margin-left: 20px;
+    }
+  }
+
+  .bb-classify-item{
+    margin-bottom: 6px;
+    border: 1px solid #dcdcdc;
+    border-radius: 4px;
+
+    .bb-classify-item-body{
+      padding: 10px;
+      background: #fff;
+      border-radius: 0 0 4px 4px;
+    }
+
+  }
+
+  .bb-classify-item-title{
+    padding: 10px 15px;
+    color: #333;
+    background-color: #fafafa;
+    border-bottom: 1px solid #dcdcdc;
+    cursor: pointer;
+    border-radius: 4px 4px 0 0;
+
+    &.active {
+      background: #dcdcdc;
+    }
+
+    i{
+      width: 20px;
+    }
+
+    a.bb-classify-collapse {
+      display: table;
+      float: right;
+      width: 40px;
+      text-align: center;
+      line-height: 40px;
+      margin-top: -10px;
+      margin-right: -15px;
+      background: #e8e8e8;
+      border-radius: 0 4px 4px 0;
+      margin-left: 15px;
+      color: #a0a0a0;
+      font-size: 20px;
+    }
+
+    a.bb-classify-delete {
+      color: rgba(208, 6, 6, 0.86);
+    }
+  }
+
+  .bb-classify-item-body{
+    display: none;
+  }
+
+  .bb-classify-area{
+    min-height: 50px;
+    position: relative;
+
+    .bb-classify-group-body{
+      .bb-sortable-static{
+        position: relative;
+
+        &:before{
+          content: "";
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          z-index: 1;
+        }
+      }
+    }
+
+    .panel {
+      margin-bottom: 6px;
+    }
+
+    .bb-add-to-classify{
+      display: none;
+    }
+
+    &:empty{
+      border: 1px dashed #c0c0c0;
+    }
+
+    &:empty:after {
+      content: "Add Items Here";
+      color: #bdbdbd;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      line-height: 50px;
+    }
+
+    &:not(:empty){
+      //padding: 10px;
+    }
+  }
+
+  .panel-heading.classify-panel {
+    display: inline-table;
+    width: 100%;
+
+    h3{
+
+      label {
+        font-size: 14px;
+        margin-right: 10px;
+      }
+
+      input {
+        border: 1px solid #dfdfdf;
+        text-indent: 5px;
+        padding: 5px 0;
+        width: 250px;
+      }
+    }
+  }
+}
