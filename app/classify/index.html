@@ -15,55 +15,54 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
     <script type="text/javascript" src="js/jquery.mjs.nestedSortable.js"></script>
+    <script type="text/javascript" src="js/jquery.menuRenderer.js"></script>
     <script src="js/fontawesome-iconpicker.min.js"></script>
     <script type="text/javascript" src="js/functions.js"></script>
 </head>
 <body>
 
 <script type="template" id="classify-item-template">
-    <li data-id="1" data-title="{title}" data-icon="{icon}">
-        <div class="bb-classify-item">
-            <div class="bb-classify-item-title">
-                <a href="javascript:" class="bb-classify-drag-handler">
-                    <i class="fa fa-arrows"></i>
+    <div class="bb-classify-item" data-id="{id}" data-title="{title}" data-icon="{icon}">
+        <div class="bb-classify-item-title">
+            <a href="javascript:" class="bb-classify-drag-handler">
+                <i class="fa fa-arrows"></i>
+            </a>
+            <i class="fa {icon}"></i>
+            <span>{title}</span>
+
+            <div class="bb-classify-actions pull-right">
+                <a href="javascript:" class="bb-classify-delete">
+                    <i class="fa fa-close"></i>
                 </a>
-                <i class="fa {icon}"></i>
-                <span>{title}</span>
-
-                <div class="bb-classify-actions pull-right">
-                    <a href="javascript:" class="bb-classify-delete">
-                        <i class="fa fa-close"></i>
-                    </a>
-                    <a href="javascript:" class="bb-classify-collapse">
-                        <i class="fa fa-caret-down"></i>
-                    </a>
-                </div>
+                <a href="javascript:" class="bb-classify-collapse">
+                    <i class="fa fa-caret-down"></i>
+                </a>
             </div>
-            <div class="bb-classify-item-body">
-                <div class="bb-classify-form">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label>Icon</label>
-                                <input type="text" class="form-control input-sm icp" value="{icon}" readonly>
-                            </div>
-                        </div>
-                        <div class="col-md-8">
-                            <div class="form-group">
-                                <label>Item Title</label>
-                                <input type="text" class="form-control input-sm classify-item-title" value="{title}">
-                            </div>
+        </div>
+        <div class="bb-classify-item-body">
+            <div class="bb-classify-form">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Icon</label>
+                            <input type="text" class="form-control input-sm icp" value="{icon}" readonly>
                         </div>
                     </div>
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label>Item Title</label>
+                            <input type="text" class="form-control input-sm classify-item-title" value="{title}">
+                        </div>
+                    </div>
+                </div>
 
-                    <div class="form-group">
-                        <label>Item URL</label>
-                        <input type="text" class="form-control input-sm item-url" value="/home" readonly>
-                    </div>
+                <div class="form-group">
+                    <label>Item URL</label>
+                    <input type="text" class="form-control input-sm item-url" value="/home" readonly>
                 </div>
             </div>
         </div>
-    </li>
+    </div>
 </script>
 
 <!-- Add Item Modal -->
@@ -92,30 +91,6 @@
     </div>
 </div>
 
-<script>
-    jQuery(function (){
-        $('.add-item').click(function (){
-            var $this = $(this),
-                list = $('#' + $this.data('to')),
-                itemTemplate = $('#classify-item-template').html();
-
-            itemTemplate = itemTemplate.replace(new RegExp('{title}', 'g'), $('[name=item_title]').val());
-            itemTemplate = itemTemplate.replace(new RegExp('{icon}', 'g'), $('[name=item_icon]').val());
-
-            list.append(itemTemplate);
-            $('#addItemModal').modal('hide');
-        });
-
-        $('body').on('click', '#bb-main-items>li .bb-classify-item-title', function (){
-            var $this = $(this),
-                item = $this.closest('li');
-
-            $('.bb-classify-item-title').removeClass('active');
-            $this.addClass("active");
-        });
-    });
-</script>
-
 <div class="bb-classify-container">
     <div class="container-fluid">
         <!-- Classify -->
@@ -132,23 +107,36 @@
                         <ol class="bb-classify-area" id="bb-main-items"></ol>
                     </div>
                 </div>
+
+                <textarea class="form-control" id="log_main" rows="15" placeholder="JSON LOG"></textarea>
             </div>
             <div class="col-md-8">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <div class="form-group">
-                            <button class="btn btn-default btn-block btn-sm add-item" data-to="bb-children-items">
-                                <i class="fa fa-plus"></i> Add Child Item
-                            </button>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <button class="btn btn-default btn-block btn-sm add-item" data-to="bb-children-items">
+                                        <i class="fa fa-plus"></i> Add Child Item
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <button class="btn btn-primary btn-block btn-sm save-children">
+                                        <i class="fa fa-floppy-o"></i> Save Items
+                                    </button>
+                                </div>
+                            </div>
                         </div>
 
                         <ol class="bb-classify-area" id="bb-children-items"></ol>
                     </div>
                 </div>
+
+                <textarea class="form-control" id="log" rows="15" placeholder="JSON LOG"></textarea>
             </div>
         </div>
-
-        <textarea class="form-control" id="log" rows="15" placeholder="JSON LOG"></textarea>
     </div>
 </div>
 

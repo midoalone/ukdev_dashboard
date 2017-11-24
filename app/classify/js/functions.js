@@ -10,6 +10,41 @@ jQuery(function ($){
         }
     });
 
+    $('.add-item').click(function (){
+        var $this = $(this),
+            list = $('#' + $this.data('to')),
+            itemTemplate = '<li>' + $('#classify-item-template').html() + '</li>',
+
+            itemTitle = $('[name=item_title]'),
+            itemIcon = $('[name=item_icon]');
+
+        itemTemplate = itemTemplate.replace(new RegExp('{title}', 'g'), itemTitle.val());
+        itemTemplate = itemTemplate.replace(new RegExp('{icon}', 'g'), itemIcon.val());
+
+        // AJAX request to save in DB for main items
+        if($this.data('to') === "bb-main-items"){
+            // Uncomment the next lines to save in db and return id
+//                $.post(ajaxurl, {title: itemTitle.val(), icon: itemIcon.val()}, function (id){
+//                    itemTemplate = itemTemplate.replace(new RegExp('{id}', 'g'), id);
+//                });
+
+            // Remove this in production
+            itemTemplate = itemTemplate.replace(new RegExp('{id}', 'g'), ''+Math.floor((Math.random() * 999999) + 111111)+'');
+        }
+
+        list.append(itemTemplate);
+
+        // Reset modal form
+        itemTitle.val('');
+        itemIcon.val('');
+
+        // Hide modal
+        $('#addItemModal').modal('hide');
+
+        // Auto save
+        saveMainItems();
+    });
+
     function repositionMenu(){
         if($focusedIconInput){
             var elementTop = $focusedIconInput.offset().top,
@@ -35,14 +70,15 @@ jQuery(function ($){
         }
     }
     
-    // Draggable items
+    // Sortable main items
     $('#bb-main-items').sortable({
         helper: "clone",
         revert: "invalid",
-        handle: '.bb-classify-drag-handler'
+        handle: '.bb-classify-drag-handler',
+        stop: saveMainItems
     });
 
-    // Sortable menu area
+    // Nested Sortable children items
     $('#bb-children-items').nestedSortable({
         items: 'li',
         isTree: true,
@@ -70,10 +106,31 @@ jQuery(function ($){
         });
     }
 
+    function saveMainItems(){
+        var ret = [];
+
+        $('#bb-main-items').children('li:not(.ui-sortable-placeholder):not(.ui-sortable-helper)').each(function() {
+
+            var $this = $(this),
+                $item = $this.find(".bb-classify-item").first();
+
+            var data = {
+                id : $item.attr('data-id'),
+                icon : $item.attr('data-icon'),
+                title : $item.attr('data-title'),
+                url : $item.attr('data-url')
+            };
+
+            ret.push(data);
+        });
+
+        $("#log_main").text(JSON.stringify(ret, null, 4));
+    }
+
     function autoSave(){
         var ret = [];
 
-        $('ol.bb-classify-area').children('li').each(function() {
+        $('#bb-children-items').children('li').each(function() {
             var level = _recursiveItems(this);
             ret.push(level);
         });
@@ -81,14 +138,17 @@ jQuery(function ($){
         $("#log").text(JSON.stringify(ret, null, 4));
 
         function _recursiveItems(item) {
-            var id = $(item).attr("data-id"),
+            var id = $(item).find('.bb-classify-item').first().attr("data-id"),
                 currentItem;
 
+            var $this = $(item),
+                $item = $this.find(".bb-classify-item").first();
+
             var data = {
-                id : $(item).attr('data-id'),
-                icon : $(item).attr('data-icon'),
-                title : $(item).attr('data-title'),
-                url : $(item).attr('data-url')
+                id : $item.attr('data-id'),
+                icon : $item.attr('data-icon'),
+                title : $item.attr('data-title'),
+                url : $item.attr('data-url')
             };
 
             if (id) {
@@ -159,7 +219,7 @@ jQuery(function ($){
         .on('iconpickerSelected', '.icp-auto', function (e) {
             var icon = e.iconpickerValue;
             $focusedIconInput.closest('.bb-classify-item').find('.bb-classify-item-title>i').attr('class', 'fa ' + icon);
-            $focusedIconInput.closest('li').attr('data-icon', icon);
+            $focusedIconInput.closest('.bb-classify-item').attr('data-icon', icon);
             $focusedIconInput.val(icon);
             $focusedIconInput = null;
             $('.iconpicker-container').hide();
@@ -167,7 +227,7 @@ jQuery(function ($){
         .on('input', '.classify-item-title', function () {
             var value = $(this).val();
             $(this).closest('.bb-classify-item').find('.bb-classify-item-title>span').text(value);
-            $(this).closest('li').attr('data-title', value);
+            $(this).closest('.bb-classify-item').attr('data-title', value);
 
             repositionMenu();
         })
@@ -199,5 +259,39 @@ jQuery(function ($){
                 $(this).remove();
                 autoSave();
             });
+        })
+        .on('click', '#bb-main-items>li .bb-classify-item-title', function (){
+            var $this = $(this),
+                item = $this.closest('.bb-classify-item'),
+                mainItemID = item.attr("data-id"),
+                childrenList = $('#bb-children-items');
+
+            $('.bb-classify-item-title').removeClass('active');
+            $this.addClass("active");
+            childrenList.html('');
+
+            // Load children json
+            var loadChildrenJSON = function (jsonString){
+                childrenList.menuRenderer({
+                    JSONString: jsonString,
+                    itemTemplateSelector: '#classify-item-template',
+                    afterRender: function (){
+
+                    }
+                });
+            };
+
+            // AJAX request to get json for children
+            // Uncomment the next lines for ajax
+            // $.post(ajaxurl, {id: mainItemID}, function (jsonString){
+            //     loadChildrenJSON(jsonString);
+            // });
+
+            // Local storage for testing purposes
+            // Remove the next lines on production
+            var jsonString = localStorage.getItem(mainItemID);
+            if(jsonString){
+                loadChildrenJSON(jsonString);
+            }
         });
 });

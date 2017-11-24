@@ -65,6 +65,9 @@ jQuery(function ($){
                 $("ol.bb-menu-area").sortable("cancel");
             }
             autoSave();
+
+            console.log($(ui.item).attr("data-id"));
+            console.log($(ui.item).closest('ol').parent('li').attr("data-id"));
         }
     });
 
