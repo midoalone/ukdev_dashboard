@@ -10,6 +10,38 @@ jQuery(function ($){
         }
     });
 
+    // Load demo data for main TODO: Remove this
+    var MainItems = localStorage.getItem("MainItems");
+    if(MainItems){
+        $('#bb-main-items').menuRenderer({
+            JSONString: MainItems,
+            itemTemplateSelector: '#classify-item-template'
+        });
+
+        saveMainItems();
+    }
+
+    // Save children
+    $('.save-children').click(function (){
+        var jsonData = $("#log").val(),
+            parenItem = $('[name=main_id]').val();
+
+        // TODO: Remove in production
+        if(parenItem) localStorage.setItem(parenItem, jsonData);
+
+        // TODO: AJAx saving for production
+        // $.post(ajaxurl, {id: parenItem}, function (jsonString){});
+    });
+
+
+    // Before opening modal
+    $('.add-item-modal').click(function (){
+        var dataTo = $(this).data("to");
+        $('.add-item').addClass('hide');
+        $('.add-item[data-to='+dataTo+']').removeClass('hide');
+    });
+
+    // Add item "Main + Child"
     $('.add-item').click(function (){
         var $this = $(this),
             list = $('#' + $this.data('to')),
@@ -23,12 +55,17 @@ jQuery(function ($){
 
         // AJAX request to save in DB for main items
         if($this.data('to') === "bb-main-items"){
-            // Uncomment the next lines to save in db and return id
+            // TODO: Uncomment the next lines to save in db and return id
 //                $.post(ajaxurl, {title: itemTitle.val(), icon: itemIcon.val()}, function (id){
 //                    itemTemplate = itemTemplate.replace(new RegExp('{id}', 'g'), id);
 //                });
 
-            // Remove this in production
+            // TODO: Remove this in production
+            itemTemplate = itemTemplate.replace(new RegExp('{id}', 'g'), ''+Math.floor((Math.random() * 999999) + 111111)+'');
+        }
+
+        // Add random IDs for children
+        if($this.data('to') === "bb-children-items"){
             itemTemplate = itemTemplate.replace(new RegExp('{id}', 'g'), ''+Math.floor((Math.random() * 999999) + 111111)+'');
         }
 
@@ -42,7 +79,9 @@ jQuery(function ($){
         $('#addItemModal').modal('hide');
 
         // Auto save
-        saveMainItems();
+        if($this.data('to') === "bb-main-items") saveMainItems();
+        if($this.data('to') === "bb-children-items") autoSave();
+
     });
 
     function repositionMenu(){
@@ -124,7 +163,11 @@ jQuery(function ($){
             ret.push(data);
         });
 
-        $("#log_main").text(JSON.stringify(ret, null, 4));
+        $("#log_main").val(JSON.stringify(ret, null, 4));
+
+        // TODO: Remove this in production
+        // Save in local storage
+        localStorage.setItem("MainItems", JSON.stringify(ret));
     }
 
     function autoSave(){
@@ -135,7 +178,7 @@ jQuery(function ($){
             ret.push(level);
         });
 
-        $("#log").text(JSON.stringify(ret, null, 4));
+        $("#log").val(JSON.stringify(ret, null, 4));
 
         function _recursiveItems(item) {
             var id = $(item).find('.bb-classify-item').first().attr("data-id"),
@@ -213,9 +256,6 @@ jQuery(function ($){
             $focusedIconInput = $(this);
             repositionMenu();
         })
-        .on('blur', 'input.icp', function (){
-
-        })
         .on('iconpickerSelected', '.icp-auto', function (e) {
             var icon = e.iconpickerValue;
             $focusedIconInput.closest('.bb-classify-item').find('.bb-classify-item-title>i').attr('class', 'fa ' + icon);
@@ -266,6 +306,12 @@ jQuery(function ($){
                 mainItemID = item.attr("data-id"),
                 childrenList = $('#bb-children-items');
 
+            // Select ID
+            $('[name=main_id]').val(mainItemID);
+
+            // Show children
+            $('#children-actions').removeClass("hide");
+
             $('.bb-classify-item-title').removeClass('active');
             $this.addClass("active");
             childrenList.html('');
@@ -276,19 +322,19 @@ jQuery(function ($){
                     JSONString: jsonString,
                     itemTemplateSelector: '#classify-item-template',
                     afterRender: function (){
-
+                        autoSave();
                     }
                 });
             };
 
             // AJAX request to get json for children
-            // Uncomment the next lines for ajax
+            // TODO: Uncomment the next lines for ajax
             // $.post(ajaxurl, {id: mainItemID}, function (jsonString){
             //     loadChildrenJSON(jsonString);
             // });
 
             // Local storage for testing purposes
-            // Remove the next lines on production
+            // TODO: Remove this in production
             var jsonString = localStorage.getItem(mainItemID);
             if(jsonString){
                 loadChildrenJSON(jsonString);
